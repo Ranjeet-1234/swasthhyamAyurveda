@@ -1,43 +1,77 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
   <head>
-    <meta charset="utf-8" />
+    <meta charset="UTF-8" />
+
+    <!-- Favicon & Manifest -->
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="Web site created using create-react-app"
-    />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>React App</title>
+    <!-- Viewport & Theme -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#047857" />
+
+    <!-- SEO Meta -->
+    <meta name="description" content="Book expert Ayurvedic consultations, explore natural treatments, and experience holistic healing at Swasthhyam Ayurveda Hospital." />
+    <meta name="keywords" content="Ayurveda, Ayurvedic hospital, holistic healing, book consultation, natural medicine, Swasthhyam" />
+    <meta name="author" content="Swasthhyam Ayurveda" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://swasthhyam.com/" />
+
+    <!-- Open Graph Meta -->
+    <meta property="og:title" content="Swasthhyam Ayurveda Hospital | Natural Healing & Wellness" />
+    <meta property="og:description" content="Book expert Ayurvedic consultations, explore natural treatments, and experience holistic healing at Swasthhyam Ayurveda Hospital." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://swasthhyam.com/" />
+    <meta property="og:image" content="https://swasthhyam.com/og-image.jpg" />
+    <meta property="og:site_name" content="Swasthhyam Ayurveda" />
+
+    <!-- Twitter Card Meta -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Swasthhyam Ayurveda Hospital | Natural Healing & Wellness" />
+    <meta name="twitter:description" content="Book expert Ayurvedic consultations, explore natural treatments, and experience holistic healing at Swasthhyam Ayurveda Hospital." />
+    <meta name="twitter:image" content="https://swasthhyam.com/og-image.jpg" />
+
+    <!-- Structured Data (Schema.org) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MedicalOrganization",
+      "name": "Swasthhyam Ayurveda Hospital",
+      "url": "https://swasthhyam.com",
+      "logo": "https://swasthhyam.com/logo192.png",
+      "sameAs": [
+        "https://www.facebook.com/swasthhyam",
+        "https://www.instagram.com/swasthhyam"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+91-9876543210",
+        "contactType": "Customer Service",
+        "areaServed": "IN",
+        "availableLanguage": ["English", "Hindi"]
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Kerala",
+        "addressRegion": "IN",
+        "addressCountry": "India"
+      }
+    }
+    </script>
+
+    <!-- Page Title -->
+    <title>Swasthhyam Ayurveda Hospital | Natural Healing & Wellness</title>
   </head>
+
   <body>
-    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <noscript>
+      <div style="text-align:center; padding:2rem; color:#333; background:#ffefef">
+        <strong>JavaScript is disabled in your browser.</strong><br />
+        For the full experience of this site, please enable JavaScript.
+      </div>
+    </noscript>
     <div id="root"></div>
-    <!--
-      This HTML file is a template.
-      If you open it directly in the browser, you will see an empty page.
-
-      You can add webfonts, meta tags, or analytics to this file.
-      The build step will place the bundled scripts into the <body> tag.
-
-      To begin the development, run `npm start` or `yarn start`.
-      To create a production bundle, use `npm run build` or `yarn build`.
-    -->
   </body>
 </html>
