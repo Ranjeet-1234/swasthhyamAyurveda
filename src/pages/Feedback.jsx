@@ -24,7 +24,7 @@ export default function PatientFeedbackForm() {
     const form = { ...formData, rating };
   
     try {
-      const res = await fetch("http://localhost:5000/api/feedback/add", {
+      const res = await fetch("https://swasthhyam-backend.onrender.com/api/feedback/add", {
         method: 'POST', // ✅ fixed: removed extra space
         headers: {
           'Content-Type': 'application/json',
