@@ -28,7 +28,7 @@ export default function Footer() {
 
       <div className="relative z-10">
         <div className="max-w-7xl mx-auto px-6 py-16">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
             {/* Brand */}
             <div>
               <div className="flex items-center gap-3 mb-6">
@@ -88,7 +88,7 @@ export default function Footer() {
                   </div>
                   <div>
                     <p className="text-sm text-gray-400">Call Us</p>
-                    <p className="text-white font-medium">+91 98765 43210</p>
+                    <p className="text-white font-medium">+91 9529396371</p>
                   </div>
                 </div>
 
@@ -98,7 +98,7 @@ export default function Footer() {
                   </div>
                   <div>
                     <p className="text-sm text-gray-400">Email Us</p>
-                    <p className="text-white font-medium">care@ayursanjeevani.in</p>
+                    <p className="text-white font-medium">swasthhyamayurveda@gmail.com</p>
                   </div>
                 </div>
 
@@ -108,7 +108,7 @@ export default function Footer() {
                   </div>
                   <div>
                     <p className="text-sm text-gray-400">Visit Us</p>
-                    <p className="text-white font-medium">123 Ayur Lane, Kerala, India</p>
+                    <p className="text-white font-medium">Office no.302,04th Floor, ShreeTower, near Savali Corner, Lohiya Nagar, Laxmi Vihar, Hadapsar, Pune, Maharashtra 411028</p>
                   </div>
                 </div>
 
@@ -129,13 +129,13 @@ export default function Footer() {
                 <p className="text-sm text-gray-400 mb-3">Follow Us</p>
                 <div className="flex gap-3">
                   {[
-                    { icon: Facebook, bg: 'bg-blue-600', hover: 'hover:bg-blue-500', label: 'Facebook' },
-                    { icon: Instagram, bg: 'bg-pink-600', hover: 'hover:bg-pink-500', label: 'Instagram' },
-                    { icon: Youtube, bg: 'bg-red-700', hover: 'hover:bg-red-600', label: 'YouTube' }
-                  ].map(({ icon: Icon, bg, hover, label }, i) => (
+                    { icon: Facebook, bg: 'bg-blue-600', hover: 'hover:bg-blue-500', label: 'Facebook' ,url:'https://www.facebook.com/profile.php?id=61574797145128&mibextid=ZbWKwL'},
+                    { icon: Instagram, bg: 'bg-pink-600', hover: 'hover:bg-pink-500', label: 'Instagram',url:'https://www.instagram.com/accounts/login/?next=%2Fswasthhyam_knee_spine_expert%2F&source=omni_redirect' },
+                    { icon: Youtube, bg: 'bg-red-700', hover: 'hover:bg-red-600', label: 'YouTube',url:'https://www.youtube.com/@SwasthhyamAyurveda' }
+                  ].map(({ icon: Icon, bg, hover, label ,url }, i) => (
                     <a
                       key={i}
-                      href="#"
+                      href={url}
                       aria-label={label}
                       className={`w-10 h-10 ${bg} ${hover} rounded-lg flex items-center justify-center transition-all duration-300 transform hover:scale-110 hover:shadow-lg`}
                     >

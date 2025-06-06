@@ -1,4 +1,4 @@
-import React, { useState, lazy, Suspense, useCallback, useMemo } from "react";
+import React, { useState, lazy, Suspense, useCallback, useMemo, useEffect } from "react";
 import { MessagesSquare, CalendarCheck, PhoneCall } from "lucide-react";
 
 // Lazy loaded components
@@ -92,6 +92,11 @@ SuspenseWrapper.displayName = 'SuspenseWrapper';
 const Home = () => {
   const [activeItem, setActiveItem] = useState(null);
   const [book, setBook] = useState(false);
+  useEffect(()=>{
+    setTimeout(()=>{
+      setBook(true);
+    },10000)
+  },[])
 
   // Memoized navigation items to prevent recreation
   const navItems = useMemo(() => [
@@ -226,7 +231,7 @@ const Home = () => {
 
         {/* Hospital Location */}
         <SuspenseWrapper fallback={<LoadingSpinner variant="default" />}>
-          <HospitalLocation />
+          <HospitalLocation openform={openBookingModal}/>
         </SuspenseWrapper>
 
         {/* Patient Feedback Form */}

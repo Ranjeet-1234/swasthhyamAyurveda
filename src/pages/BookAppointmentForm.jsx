@@ -241,28 +241,6 @@ const BookAppointmentForm = () => {
               </h3>
 
               <div className="space-y-4">
-                {/* <div className="relative group">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Preferred Doctor</label>
-                  <select
-                    value={formData.doctor}
-                    onChange={(e) => handleInputChange('doctor', e.target.value)}
-                    onFocus={() => setFocusedField('doctor')}
-                    onBlur={() => setFocusedField('')}
-                    className={`w-full px-4 py-3 rounded-xl border-2 transition-all duration-300 bg-white/50 backdrop-blur-sm
-                      ${focusedField === 'doctor' 
-                        ? 'border-blue-400 shadow-lg shadow-blue-100 scale-105' 
-                        : 'border-gray-200 hover:border-gray-300'
-                      } focus:outline-none`}
-                  >
-                    <option value="">Select a doctor</option>
-                    {doctors.map((doctor) => (
-                      <option key={doctor.name} value={doctor.name}>
-                        {doctor.name} {doctor.specialty !== "General" && `- ${doctor.specialty}`}
-                      </option>
-                    ))}
-                  </select>
-                </div> */}
-
                 <div className="relative group">
                   <label className="block text-sm font-medium text-gray-700 mb-2">Service/Concern *</label>
                   <select
@@ -381,11 +359,11 @@ const BookAppointmentForm = () => {
         </div>
 
         {/* Footer Note */}
-        <div className="text-center mt-8 p-4 bg-white/30 backdrop-blur-sm rounded-xl">
+        {/* <div className="text-center mt-8 p-4 bg-white/30 backdrop-blur-sm rounded-xl">
           <p className="text-gray-600 text-sm">
             🏥 Available 24/7 for emergency appointments • 📞 Call us at +91-1234567890
           </p>
-        </div>
+        </div> */}
       </div>
 
       <style jsx>{`

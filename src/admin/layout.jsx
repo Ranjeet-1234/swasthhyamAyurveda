@@ -1,13 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense, lazy } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Home, Users, CalendarCheck, LogOut, Menu, X,  User,NotebookTabs ,Handshake} from 'lucide-react';
-import ShowDoc from "./ShowDoc"
-import AdminServicesPage from "./showService"
-import FeatureProduct from "./showProduct"
-import ActivityPage from "./showActivity"
-import TestimonialPage from "./showTestimonial"
-import AllAppointments from "./showAppointment"
-import DoctorManagement from "./showDashboard"
+import {
+  Home, Users, CalendarCheck, LogOut, Menu, X, User,
+  NotebookTabs, MessageCircle, BarChart3, Handshake, Megaphone
+} from 'lucide-react';
+
+// Lazy loaded components
+const ShowDoc = lazy(() => import('./ShowDoc'));
+const AdminServicesPage = lazy(() => import('./showService'));
+const FeatureProduct = lazy(() => import('./showProduct'));
+const ActivityPage = lazy(() => import('./showActivity'));
+const TestimonialPage = lazy(() => import('./showTestimonial'));
+const AllAppointments = lazy(() => import('./showAppointment'));
+const DoctorManagement = lazy(() => import('./showDashboard'));
+const FeedbackPage = lazy(() => import('./showFeedback'));
 
 const navItems = [
   { name: 'Dashboard', icon: <Home className="w-5 h-5" />, path: '#', active: true },
@@ -15,8 +21,9 @@ const navItems = [
   { name: 'Appointments', icon: <CalendarCheck className="w-5 h-5" />, path: '#', active: false },
   { name: 'Services', icon: <Handshake className="w-5 h-5" />, path: '#', active: false },
   { name: 'Products', icon: <NotebookTabs className="w-5 h-5" />, path: '#', active: false },
-  { name: 'Activity', icon: <Handshake className="w-5 h-5" />, path: '#', active: false },
-  { name: 'Testimonial', icon: <Handshake className="w-5 h-5" />, path: '#', active: false },
+  { name: 'Activity', icon: <BarChart3 className="w-5 h-5" />, path: '#', active: false },
+  { name: 'Testimonial', icon: <MessageCircle className="w-5 h-5" />, path: '#', active: false },
+  { name: 'Feedback', icon: <Megaphone className="w-5 h-5" />, path: '#', active: false },
 ];
 
 export default function AdminPanelLayout({ children }) {
@@ -29,23 +36,23 @@ export default function AdminPanelLayout({ children }) {
     // console.log(itemName)
     setSidebarOpen(false);
   };
-  const logout =()=>{
+  const logout = () => {
     localStorage.clear('token');
     navigate('/login')
   }
-  useEffect(()=>{
+  useEffect(() => {
     const token = localStorage.getItem('token');
-    if (!token){
+    if (!token) {
       navigate('/login');
-      }  
-  
+    }
+
   })
 
   return (
     <div className="flex h-screen bg-gradient-to-br from-slate-50 to-slate-100">
       {/* Mobile Sidebar Overlay */}
       {sidebarOpen && (
-        <div 
+        <div
           className="fixed inset-0 z-20 bg-black bg-opacity-50 lg:hidden"
           onClick={() => setSidebarOpen(false)}
         />
@@ -68,7 +75,7 @@ export default function AdminPanelLayout({ children }) {
               </div>
               <h2 className="text-xl font-bold text-slate-800">Admin Panel</h2>
             </div>
-            <button 
+            <button
               onClick={() => setSidebarOpen(false)}
               className="lg:hidden p-2 rounded-md hover:bg-slate-100"
             >
@@ -85,8 +92,8 @@ export default function AdminPanelLayout({ children }) {
                 className={`
                   w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left
                   transition-all duration-200 group
-                  ${activeItem === item.name 
-                    ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg shadow-emerald-500/25' 
+                  ${activeItem === item.name
+                    ? 'bg-gradient-to-r from-emerald-500 to-teal-600 text-white shadow-lg shadow-emerald-500/25'
                     : 'text-slate-600 hover:bg-slate-100 hover:text-slate-800'
                   }
                 `}
@@ -113,9 +120,9 @@ export default function AdminPanelLayout({ children }) {
                 <p className="text-xs text-slate-500 truncate">admin@example.com</p>
               </div>
             </div>
-            <button 
-            onClick={logout} 
-            className="w-full flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-red-50 hover:text-red-600 rounded-xl transition-all duration-200">
+            <button
+              onClick={logout}
+              className="w-full flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-red-50 hover:text-red-600 rounded-xl transition-all duration-200">
               <LogOut className="w-4 h-4" />
               <span className="font-medium">Logout</span>
             </button>
@@ -129,7 +136,7 @@ export default function AdminPanelLayout({ children }) {
         <header className="bg-white border-b border-slate-200 px-4 lg:px-8 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
-              <button 
+              <button
                 onClick={() => setSidebarOpen(true)}
                 className="lg:hidden p-2 rounded-md hover:bg-slate-100"
               >
@@ -144,29 +151,6 @@ export default function AdminPanelLayout({ children }) {
                 </p>
               </div>
             </div>
-
-            {/* <div className="flex items-center gap-3">
-              
-              <div className="hidden md:flex items-center gap-2 bg-slate-100 rounded-xl px-4 py-2">
-                <Search className="w-4 h-4 text-slate-400" />
-                <input 
-                  type="text" 
-                  placeholder="Search..." 
-                  className="bg-transparent border-none outline-none text-sm text-slate-600 w-32 lg:w-48"
-                />
-              </div>
-              
-          
-              <button className="relative p-2 rounded-xl hover:bg-slate-100 transition-colors">
-                <Bell className="w-5 h-5 text-slate-600" />
-                <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></span>
-              </button>
-
-           
-              <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center cursor-pointer">
-                <User className="w-4 h-4 text-white" />
-              </div>
-            </div> */}
           </div>
         </header>
 
@@ -184,61 +168,17 @@ export default function AdminPanelLayout({ children }) {
 
           {/* Demo Content */}
           <div className="space-y-6">
-            {/* <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-slate-500 text-sm font-medium">Total Doctors</p>
-                    <p className="text-2xl font-bold text-slate-800 mt-1">24</p>
-                  </div>
-                  <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                    <Users className="w-6 h-6 text-blue-600" />
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 hover:shadow-md transition-shadow">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-slate-500 text-sm font-medium">Appointments</p>
-                    <p className="text-2xl font-bold text-slate-800 mt-1">142</p>
-                  </div>
-                  <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
-                    <CalendarCheck className="w-6 h-6 text-emerald-600" />
-                  </div>
-                </div>
-              </div>
-
-              <div className="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 hover:shadow-md transition-shadow md:col-span-2 lg:col-span-1">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-slate-500 text-sm font-medium">Active Users</p>
-                    <p className="text-2xl font-bold text-slate-800 mt-1">1,284</p>
-                  </div>
-                  <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
-                    <Home className="w-6 h-6 text-purple-600" />
-                  </div>
-                </div>
-              </div>
-            </div> */}
-
             {/* Content Area */}
-            <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
-              {/* <h3 className="text-lg font-semibold text-slate-800 mb-4">
-                {activeItem} Content
-              </h3>
-              <p className="text-slate-600">
-                Your {activeItem.toLowerCase()} content will appear here. This is a placeholder for your actual page content.
-              </p>
-              {children} */}
+            <Suspense fallback={<div className="text-center text-slate-500">Loading...</div>}>
               {activeItem === "Doctors" && <ShowDoc />}
               {activeItem === "Dashboard" && <DoctorManagement />}
-              {activeItem === "Services" && <AdminServicesPage/>}
-              {activeItem === "Appointments" && <AllAppointments/>}
-              {activeItem === "Products" && <FeatureProduct/>}
-              {activeItem === "Activity" && <ActivityPage/>}
-              {activeItem === "Testimonial" && <TestimonialPage/>}
-            </div>
+              {activeItem === "Services" && <AdminServicesPage />}
+              {activeItem === "Appointments" && <AllAppointments />}
+              {activeItem === "Products" && <FeatureProduct />}
+              {activeItem === "Activity" && <ActivityPage />}
+              {activeItem === "Testimonial" && <TestimonialPage />}
+              {activeItem === "Feedback" && <FeedbackPage />}
+            </Suspense>
           </div>
         </div>
       </main>

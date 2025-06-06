@@ -12,6 +12,7 @@ import {
   Bell,
   Settings,
 } from 'lucide-react';
+// mongodb+srv://rewatkarranjeet123:HtOShUjfiFUoZh1j@swasthhyam.wxtddxq.mongodb.net/
 
 // const appointments = [
 //   { id: 1, patient: 'Anjali Verma', age: 28, date: '2025-06-01', time: '10:00 AM', symptoms: 'Headache, Nausea', status: 'Pending', priority: 'Medium', phone: '+91 98765 43210' },
@@ -88,14 +89,15 @@ export default function DoctorDashboard() {
       if (!token || !doctorId){
       navigate('/login');
       }  
-  
+      // https://swasthhyam-backend.onrender.com/api/appointments/${doctorId}
       try {
         const res = await fetch(`https://swasthhyam-backend.onrender.com/api/appointments/${doctorId}`, {
+          method:"GET",
           headers: { Authorization: `Bearer ${token}` }
         });
   
         const data = await res.json();
-        console.log(data)
+        // console.log(data)
         if (data.length > prevCountRef.current) {
           toast.info("📅 New appointment booked!");
         }

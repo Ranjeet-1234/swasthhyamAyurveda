@@ -1,20 +1,43 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Menu, X } from "lucide-react";
-// import BookAppointmentModal from "./BookAppointmentModal";
+import banner1 from '../media/banner1.webp'
+import banner2 from '../media/banner2.webp'
+import banner3 from '../media/banner3.webp'
+import banner4 from '../media/banner4.webp'
+import banner5 from '../media/banner5.webp'
+import logo from '../media/newLogo.webp'
 
 const HeaderBanner = ({ openform }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  // const [isModalOpen, setIsModalOpen] = useState(false);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const backgroundImages = [banner1, banner2, banner3, banner4, banner5];
+
+  // Auto-rotate background images every 10 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prevIndex) =>
+        (prevIndex + 1) % backgroundImages.length
+      );
+    }, 10000);
+
+    return () => clearInterval(interval);
+  }, [backgroundImages.length]);
 
   return (
     <header id="home" className="relative min-h-screen overflow-hidden">
-      {/* Background with gradient overlay */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80')`,
-        }}
-      />
+      {/* Background with gradient overlay and image rotation */}
+      <div className="absolute inset-0">
+        {backgroundImages.map((image, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-1000 ${index === currentImageIndex ? 'opacity-100' : 'opacity-0'
+              }`}
+            style={{
+              backgroundImage: `url('${image}')`,
+            }}
+          />
+        ))}
+      </div>
 
       {/* Gradient Overlays */}
       <div className="absolute inset-0 bg-gradient-to-br from-emerald-900/80 via-teal-800/70 to-green-900/80" />
@@ -26,14 +49,15 @@ const HeaderBanner = ({ openform }) => {
         <nav className="w-full px-4 sm:px-6 lg:px-8 py-4 lg:py-6">
           <div className="max-w-7xl mx-auto flex items-center justify-between">
             {/* Logo */}
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-emerald-600 rounded-full flex items-center justify-center">
-                <span className="text-white font-bold text-lg">S</span>
+            <div className="flex items-center space-x-1">
+              <div className="w-20 h-20  rounded-full flex items-center justify-center overflow-hidden">
+                <img src={logo} loading="lazy" alt="logo" className="w-full h-full object-contain" />
               </div>
               <span className="text-2xl lg:text-3xl font-bold bg-gradient-to-r from-white to-green-200 bg-clip-text text-transparent">
                 Swasthhyam
               </span>
             </div>
+
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-8">

@@ -9,28 +9,48 @@ export default function PatientFeedbackForm() {
     name: '',
     email: '',
     feedback: '',
-    category: 'general'
   });
 
   const handleChange = (e) => {
-    setFormData({...formData, [e.target.name]: e.target.value});
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!formData.name || !formData.email || !formData.feedback) {
       alert('Please fill in all required fields');
       return;
     }
-    console.log('Feedback submitted:', { ...formData, rating });
-    setSubmitted(true);
-    
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setFormData({ name: '', email: '', feedback: '', category: 'general' });
-      setRating(0);
-      setSubmitted(false);
-    }, 3000);
+  
+    const form = { ...formData, rating };
+  
+    try {
+      const res = await fetch("http://localhost:5000/api/feedback/add", {
+        method: 'POST', // ✅ fixed: removed extra space
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(form),
+      });
+  
+      if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.message || 'Request failed');
+      }
+  
+      setSubmitted(true);
+  
+      // Reset form after 3 seconds
+      setTimeout(() => {
+        setFormData({ name: '', email: '', feedback: '' });
+        setRating(0);
+        setSubmitted(false);
+      }, 3000);
+    } catch (error) {
+      console.error("Feedback submission error:", error.message);
+      alert("Submission failed: " + error.message);
+    }
   };
+  
 
   if (submitted) {
     return (
@@ -39,7 +59,7 @@ export default function PatientFeedbackForm() {
         <div className="absolute top-20 left-20 w-40 h-40 bg-gradient-to-r from-blue-400/20 to-purple-400/20 rounded-full animate-bounce" />
         <div className="absolute bottom-32 right-16 w-56 h-56 bg-gradient-to-r from-pink-400/15 to-blue-400/15 rounded-full animate-pulse" />
         <div className="absolute top-1/3 right-1/3 w-32 h-32 bg-gradient-to-r from-purple-400/25 to-pink-400/25 rounded-full animate-ping" />
-        
+
         <div className="relative bg-white/90 backdrop-blur-lg rounded-3xl shadow-2xl p-12 text-center max-w-md mx-auto border border-white/20">
           <div className="mb-6">
             <CheckCircle className="w-20 h-20 text-green-500 mx-auto mb-4 animate-pulse" />
@@ -49,8 +69,8 @@ export default function PatientFeedbackForm() {
             <p className="text-gray-600 text-lg">Your feedback has been submitted successfully</p>
           </div>
           <div className="flex justify-center space-x-2">
-            {[1,2,3].map((i) => (
-              <Heart key={i} className="w-6 h-6 text-pink-400 fill-pink-400 animate-pulse" style={{animationDelay: `${i * 0.2}s`}} />
+            {[1, 2, 3].map((i) => (
+              <Heart key={i} className="w-6 h-6 text-pink-400 fill-pink-400 animate-pulse" style={{ animationDelay: `${i * 0.2}s` }} />
             ))}
           </div>
         </div>
@@ -118,7 +138,7 @@ export default function PatientFeedbackForm() {
             </div>
 
             {/* Category Selection */}
-            <div className="relative">
+            {/* <div className="relative">
               <label className="block text-sm font-semibold text-gray-700 mb-2">
                 Feedback Category
               </label>
@@ -135,7 +155,7 @@ export default function PatientFeedbackForm() {
                 <option value="treatment">Treatment Quality</option>
                 <option value="other">Other</option>
               </select>
-            </div>
+            </div> */}
 
             {/* Rating */}
             <div className="relative">
@@ -146,11 +166,10 @@ export default function PatientFeedbackForm() {
                 {[1, 2, 3, 4, 5].map((star) => (
                   <Star
                     key={star}
-                    className={`w-10 h-10 cursor-pointer transition-all duration-200 transform hover:scale-110 ${
-                      (hover || rating) >= star
+                    className={`w-10 h-10 cursor-pointer transition-all duration-200 transform hover:scale-110 ${(hover || rating) >= star
                         ? 'text-yellow-400 fill-yellow-400 drop-shadow-lg'
                         : 'text-gray-300 hover:text-yellow-200'
-                    }`}
+                      }`}
                     onClick={() => setRating(star)}
                     onMouseEnter={() => setHover(star)}
                     onMouseLeave={() => setHover(0)}
