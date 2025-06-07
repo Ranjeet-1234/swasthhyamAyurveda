@@ -1,6 +1,6 @@
 import React, { useState, lazy, Suspense, useCallback, useMemo, useEffect } from "react";
 import { MessagesSquare, CalendarCheck, PhoneCall } from "lucide-react";
-import loading from '../media/loading.gif'
+import loading from '../media/loading.avif'
 // Lazy loaded components
 const HeaderBanner = lazy(() => import("./HeaderBanner"));
 const Doctors = lazy(() => import("./Doctors"));
