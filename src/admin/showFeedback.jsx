@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { MessageCircle, Star, Mail, Calendar, Filter, Search, TrendingUp, Users,} from 'lucide-react';
+import { MessageCircle, Star, Mail, Calendar, Filter, Search, TrendingUp, Users, } from 'lucide-react';
 
 export default function AdminFeedbackPage() {
   const [feedbacks, setFeedbacks] = useState([]);
@@ -10,7 +10,7 @@ export default function AdminFeedbackPage() {
   const [sortBy, setSortBy] = useState('newest');
 
   // Real API call (commented out for demo)
-  
+
   useEffect(() => {
     const fetchFeedback = async () => {
       const token = localStorage.getItem('token');
@@ -34,7 +34,7 @@ export default function AdminFeedbackPage() {
 
     fetchFeedback();
   }, []);
-  
+
 
   // Filter and search functionality
   useEffect(() => {
@@ -72,10 +72,10 @@ export default function AdminFeedbackPage() {
   }, [feedbacks, searchTerm, ratingFilter, sortBy]);
 
   // Calculate statistics
-  const averageRating = feedbacks.length > 0 
+  const averageRating = feedbacks.length > 0
     ? (feedbacks.reduce((sum, item) => sum + item.rating, 0) / feedbacks.length).toFixed(1)
     : 0;
-  
+
   const totalFeedbacks = feedbacks.length;
   const positivePercentage = feedbacks.length > 0
     ? Math.round((feedbacks.filter(item => item.rating >= 4).length / feedbacks.length) * 100)
@@ -147,7 +147,7 @@ export default function AdminFeedbackPage() {
                 </div>
               </div>
             </div>
-            
+
             <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
               <div className="flex items-center justify-between">
                 <div>
@@ -159,7 +159,7 @@ export default function AdminFeedbackPage() {
                 </div>
               </div>
             </div>
-            
+
             <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
               <div className="flex items-center justify-between">
                 <div>
@@ -189,7 +189,7 @@ export default function AdminFeedbackPage() {
                   className="w-full pl-10 pr-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
                 />
               </div>
-              
+
               {/* Rating Filter */}
               <div className="relative">
                 <select
@@ -206,7 +206,7 @@ export default function AdminFeedbackPage() {
                 </select>
                 <Filter className="w-4 h-4 text-gray-400 absolute right-3 top-1/2 transform -translate-y-1/2 pointer-events-none" />
               </div>
-              
+
               {/* Sort */}
               <div className="relative">
                 <select
@@ -236,8 +236,8 @@ export default function AdminFeedbackPage() {
               {feedbacks.length === 0 ? 'No feedback yet' : 'No matching feedback found'}
             </h3>
             <p className="text-gray-600">
-              {feedbacks.length === 0 
-                ? 'Patient feedback will appear here once submitted.' 
+              {feedbacks.length === 0
+                ? 'Patient feedback will appear here once submitted.'
                 : 'Try adjusting your search or filter criteria.'}
             </p>
           </div>
@@ -248,15 +248,15 @@ export default function AdminFeedbackPage() {
                 Showing {filteredFeedbacks.length} of {feedbacks.length} feedback{feedbacks.length !== 1 ? 's' : ''}
               </p>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
               {filteredFeedbacks.map((item, index) => (
-                <div 
-                  key={index} 
+                <div
+                  key={index}
                   className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg hover:border-gray-200 transition-all duration-200 group"
                 >
                   {/* Header */}
-                  <div className="flex items-start justify-between mb-4">
+                  <div className="flex items-start justify-between mb-4 ">
                     <div className="flex items-center gap-3">
                       <div className="w-10 h-10 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold">
                         {item.name.charAt(0).toUpperCase()}
@@ -265,13 +265,13 @@ export default function AdminFeedbackPage() {
                         <h3 className="font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
                           {item.name}
                         </h3>
-                        <div className="flex items-center gap-1 text-sm text-gray-500">
-                          <Mail className="w-3 h-3" />
-                          {item.email}
+                        <div className="flex items-center gap-1 text-sm text-gray-500 max-w-[200px] truncate overflow-hidden">
+                          <Mail className="w-3 h-3 shrink-0" />
+                          <span className="truncate">{item.email}</span>
                         </div>
                       </div>
                     </div>
-                    
+
                     <div className={`px-3 py-1 rounded-full text-sm font-medium border ${getRatingColor(item.rating)}`}>
                       {item.rating}/5
                     </div>
@@ -286,17 +286,16 @@ export default function AdminFeedbackPage() {
                   <div className="flex items-center justify-between">
                     <div className="flex gap-1">
                       {[...Array(5)].map((_, i) => (
-                        <Star 
-                          key={i} 
-                          className={`w-4 h-4 ${
-                            i < item.rating 
-                              ? 'text-yellow-500 fill-yellow-500' 
-                              : 'text-gray-300'
-                          }`} 
+                        <Star
+                          key={i}
+                          className={`w-4 h-4 ${i < item.rating
+                            ? 'text-yellow-500 fill-yellow-500'
+                            : 'text-gray-300'
+                            }`}
                         />
                       ))}
                     </div>
-                    
+
                     <div className="flex items-center gap-1 text-sm text-gray-500">
                       <Calendar className="w-3 h-3" />
                       {new Date(item.createdAt).toLocaleDateString('en-US', {

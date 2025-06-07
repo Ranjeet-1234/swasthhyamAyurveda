@@ -65,7 +65,7 @@ export default function DoctorDashboard() {
         });
 
         const data = await res.json();
-        // console.log(data[0].doctor.name)
+        // console.log(data)
         if (data.length > prevCountRef.current) {
           toast.info("📅 New appointment booked!");
         }
