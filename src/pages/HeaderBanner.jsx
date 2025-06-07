@@ -64,6 +64,7 @@ const HeaderBanner = ({ openform }) => {
             <div className="hidden lg:flex items-center space-x-8">
               <a
                 href="/"
+                aria-label="Go to Home page"
                 className="text-white/90 hover:text-white transition-colors duration-300 text-lg font-medium"
               >
                 Home
@@ -71,6 +72,7 @@ const HeaderBanner = ({ openform }) => {
 
               <a
                 href="#about"
+                aria-label="Learn more About us section"
                 className="text-white/90 hover:text-white transition-colors duration-300 text-lg font-medium py-2"
               >
                 About
@@ -78,6 +80,7 @@ const HeaderBanner = ({ openform }) => {
 
               <a
                 href="#services"
+                aria-label="View our Services section"
                 className="text-white/90 hover:text-white transition-colors duration-300 text-lg font-medium"
               >
                 Services
@@ -85,6 +88,7 @@ const HeaderBanner = ({ openform }) => {
 
               <a
                 href="#products"
+                aria-label="Explore our Products section"
                 className="text-white/90 hover:text-white transition-colors duration-300 text-lg font-medium"
               >
                 Products
@@ -92,6 +96,7 @@ const HeaderBanner = ({ openform }) => {
 
               <a
                 href="#contact"
+                aria-label="Contact us section"
                 className="text-white/90 hover:text-white transition-colors duration-300 text-lg font-medium"
               >
                 Contact
@@ -107,11 +112,13 @@ const HeaderBanner = ({ openform }) => {
 
               <a
                 href="/login"
+                aria-label="Login to your account"
                 className="text-white/90 hover:text-white transition-colors duration-300 text-lg font-medium py-2"
               >
                 Login
               </a>
             </div>
+
 
 
             {/* Mobile Menu Button */}
@@ -190,12 +197,12 @@ const HeaderBanner = ({ openform }) => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 lg:gap-6">
-                <button
-                  aria-label="Confirm appointment booking"
-                  onClick={openform}
-                  className="w-full sm:w-auto bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 px-8 py-4 text-lg lg:text-xl font-semibold rounded-full transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl">
-                  Book Appointment
-                </button>
+              <button
+                aria-label="Confirm appointment booking"
+                onClick={openform}
+                className="w-full sm:w-auto bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 px-8 py-4 text-lg lg:text-xl font-semibold rounded-full transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl">
+                Book Appointment
+              </button>
               <a
                 href="#services"
                 aria-label="Click here to see our services"

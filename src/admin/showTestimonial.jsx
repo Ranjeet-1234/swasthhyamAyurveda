@@ -287,6 +287,7 @@ const TestimonialPage = () => {
                                                                 className="w-20 h-14 object-cover rounded-md border mb-2"
                                                             />
                                                             <a
+                                                                aria-label='Watch Video'
                                                                 href={`https://www.youtube.com/watch?v=${testimonial.videoId}`}
                                                                 target="_blank"
                                                                 rel="noopener noreferrer"

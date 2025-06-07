@@ -194,7 +194,9 @@ const Services = ({ openform }) => {
                                                     href={item.url}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    className="inline-flex items-center justify-center bg-gradient-to-r from-emerald-600 to-green-500 text-white font-medium py-2 px-4 rounded-lg text-sm transition-all duration-300 hover:scale-105">
+                                                    aria-label={`Learn more about ${item.title || 'this item'}`}
+                                                    className="inline-flex items-center justify-center bg-gradient-to-r from-emerald-600 to-green-500 text-white font-medium py-2 px-4 rounded-lg text-sm transition-all duration-300 hover:scale-105"
+                                                >
                                                     learn more
                                                 </a>
                                             </div>
@@ -218,9 +220,12 @@ const Services = ({ openform }) => {
                                                         href={item.url}
                                                         target="_blank"
                                                         rel="noopener noreferrer"
-                                                        className="inline-flex items-center justify-center bg-gradient-to-r from-emerald-600 to-green-500 text-white font-medium py-2 px-4 rounded-lg text-sm transition-all duration-300 hover:scale-105">
+                                                        aria-label={`Learn more about ${item.title || 'this item'}`}
+                                                        className="inline-flex items-center justify-center bg-gradient-to-r from-emerald-600 to-green-500 text-white font-medium py-2 px-4 rounded-lg text-sm transition-all duration-300 hover:scale-105"
+                                                    >
                                                         learn more
                                                     </a>
+
                                                 </div>
                                             </div>
                                         </div>

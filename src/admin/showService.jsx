@@ -235,13 +235,14 @@ const AdminServicesPage = () => {
                                                 <td className="px-6 py-4 max-w-sm">{service.description}</td>
                                                 <td className="px-6 py-4 text-sm">
                                                     {service.url ? (
-                                                        <a
+                                                        <a  
+                                                            aria-label='Learn more about Service'
                                                             href={service.url}
                                                             target="_blank"
                                                             rel="noopener noreferrer"
                                                             className="inline-flex items-center justify-center px-3 py-1.5 text-sm font-medium text-white bg-emerald-600 hover:bg-emerald-700 rounded-md transition"
                                                         >
-                                                            Learn More
+                                                            learn more
                                                         </a>
                                                     ) : (
                                                         <span className="text-slate-400 italic">—</span>

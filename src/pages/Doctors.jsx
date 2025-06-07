@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useSwipeable } from 'react-swipeable';
-import { 
-  FaGraduationCap, 
-  FaFacebookF, 
-  FaLinkedinIn, 
-  FaInstagram, 
+import {
+  FaGraduationCap,
+  FaFacebookF,
+  FaLinkedinIn,
+  FaInstagram,
   FaStar,
   FaChevronLeft,
-  FaChevronRight 
+  FaChevronRight
 } from 'react-icons/fa';
 
 const Doctors = ({ openform }) => {
@@ -30,7 +30,7 @@ const Doctors = ({ openform }) => {
       try {
         setLoading(true);
         setError(null);
-        
+
         // Replace 'https://swasthhyam-backend.onrender.com/api/doctors' with your actual backend URL
         const response = await fetch('https://swasthhyam-backend.onrender.com/api/doctors', {
           method: 'GET',
@@ -40,13 +40,13 @@ const Doctors = ({ openform }) => {
             // 'Authorization': `Bearer ${token}`,
           },
         });
-        
+
         if (!response.ok) {
           throw new Error(`Failed to fetch doctors: ${response.status} ${response.statusText}`);
         }
-        
+
         const data = await response.json();
-        
+
         // Handle different response formats
         let doctors = [];
         if (Array.isArray(data)) {
@@ -58,27 +58,27 @@ const Doctors = ({ openform }) => {
         } else {
           throw new Error('Invalid response format: Expected array of doctors');
         }
-        
+
         // console.log('Fetched doctors:', doctors); // For debugging
-        
+
         // Separate doctors based on 'main' property
         const mainDocs = doctors.filter(doc => doc.main === true);
         const carouselDocs = doctors.filter(doc => doc.main !== true);
-        
+
         // console.log('Main doctors:', mainDocs); // For debugging
         // console.log('Carousel doctors:', carouselDocs); // For debugging
-        
+
         setMainDoctors(mainDocs);
         setCarouselDoctors(carouselDocs);
-        
+
       } catch (err) {
         // // console.error('Error fetching doctors:', err);
         setError(`Failed to load doctors: ${err.message}`);
-        
+
         // Optional: Set some dummy data for development/testing
         // setMainDoctors([]);
         // setCarouselDoctors([]);
-        
+
       } finally {
         setLoading(false);
       }
@@ -141,9 +141,9 @@ const Doctors = ({ openform }) => {
       <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-green-50 flex items-center justify-center">
         <div className="text-center bg-white p-8 rounded-xl shadow-lg">
           <p className="text-xl text-red-600 mb-4">{error}</p>
-          <button 
-          aria-label="Retry the booking appointment"
-            onClick={() => window.location.reload()} 
+          <button
+            aria-label="Retry the booking appointment"
+            onClick={() => window.location.reload()}
             className="bg-emerald-600 text-white px-6 py-2 rounded-lg hover:bg-emerald-700 transition-colors"
           >
             Retry
@@ -191,10 +191,10 @@ const Doctors = ({ openform }) => {
                       <div className="w-full flex justify-center items-center mb-6">
                         <div className="relative group">
                           <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden shadow-xl ring-4 ring-white">
-                            <img 
-                              src={doc.image} 
+                            <img
+                              src={doc.image}
                               loading='lazy'
-                              alt={doc.name} 
+                              alt={doc.name}
                               className="w-full h-full object-cover"
                               onError={(e) => {
                                 e.target.src = 'https://via.placeholder.com/150x150?text=Doctor';
@@ -204,11 +204,11 @@ const Doctors = ({ openform }) => {
                         </div>
                       </div>
                     )}
-                    
+
                     <h3 className="text-3xl font-bold text-gray-900 mb-3 hover:text-emerald-700 transition-colors duration-300">
                       {doc.name}
                     </h3>
-                    
+
                     <div className="flex items-center justify-between mb-4">
                       <p className="text-emerald-600 font-semibold text-base md:text-lg">{doc.title}</p>
                       {isMobile && (
@@ -225,7 +225,7 @@ const Doctors = ({ openform }) => {
                         </div>
                       )}
                     </div>
-                    
+
                     <p className="text-gray-700 mb-6 leading-relaxed text-lg">{doc.bio}</p>
 
                     {/* Quote - only show on desktop */}
@@ -275,26 +275,32 @@ const Doctors = ({ openform }) => {
                         <div className="flex gap-3">
                           <a
                             href={doc.socials?.facebook || '#'}
+                            aria-label={`Visit ${doc.name || 'doctor'}'s Facebook profile`}
                             className="w-12 h-12 bg-emerald-50 hover:bg-emerald-100 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 group"
                           >
                             <FaFacebookF className="text-emerald-600 group-hover:text-emerald-700 w-5 h-5" />
                           </a>
+
                           <a
                             href={doc.socials?.linkedin || '#'}
+                            aria-label={`Visit ${doc.name || 'doctor'}'s LinkedIn profile`}
                             className="w-12 h-12 bg-emerald-50 hover:bg-emerald-100 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 group"
                           >
                             <FaLinkedinIn className="text-emerald-600 group-hover:text-emerald-700 w-5 h-5" />
                           </a>
+
                           <a
                             href={doc.socials?.instagram || '#'}
+                            aria-label={`Visit ${doc.name || 'doctor'}'s Instagram profile`}
                             className="w-12 h-12 bg-emerald-50 hover:bg-emerald-100 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110 group"
                           >
                             <FaInstagram className="text-emerald-600 group-hover:text-emerald-700 w-5 h-5" />
                           </a>
+
                         </div>
                       )}
 
-                      <button 
+                      <button
                         aria-label="Confirm Consultation booking"
 
                         onClick={openform}
@@ -311,10 +317,10 @@ const Doctors = ({ openform }) => {
                   <div className="w-full md:w-1/2 flex justify-center items-center p-8">
                     <div className="relative group">
                       <div className="w-64 h-64 md:w-80 md:h-80 rounded-3xl overflow-hidden shadow-2xl group-hover:shadow-3xl transition-all duration-500 hover:scale-105">
-                        <img 
-                          src={doc.image} 
+                        <img
+                          src={doc.image}
                           loading='lazy'
-                          alt={doc.name} 
+                          alt={doc.name}
                           className="w-full h-full object-cover"
                           onError={(e) => {
                             e.target.src = 'https://via.placeholder.com/300x300?text=Doctor';
@@ -392,7 +398,7 @@ const Doctors = ({ openform }) => {
 
                         <div className="flex items-center justify-between">
                           {isMobile ? (
-                            <button 
+                            <button
                               aria-label='Confirm consultation Booking'
                               onClick={openform}
                               className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
@@ -404,6 +410,7 @@ const Doctors = ({ openform }) => {
                               <div className="flex gap-3">
                                 {Object.entries(doc.socials || {}).map(([platform, url]) => (
                                   <a
+                                    aria-label={`View ${platform} profile`}
                                     key={platform}
                                     href={url || '#'}
                                     className="w-10 h-10 bg-emerald-50 hover:bg-emerald-100 rounded-full flex items-center justify-center transition-all duration-300 hover:scale-110"
@@ -414,7 +421,7 @@ const Doctors = ({ openform }) => {
                                   </a>
                                 ))}
                               </div>
-                              <button 
+                              <button
                                 aria-label='Open and Appointment booking form '
                                 onClick={openform}
                                 className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-full font-medium transition-all duration-300 hover:scale-105 shadow-lg"
@@ -429,10 +436,10 @@ const Doctors = ({ openform }) => {
                       <div className="w-full md:w-1/2 flex justify-center">
                         <div className="relative">
                           <div className="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden shadow-xl">
-                            <img 
+                            <img
                               loading='lazy'
-                              src={doc.image} 
-                              alt={doc.name} 
+                              src={doc.image}
+                              alt={doc.name}
                               className="w-full h-full object-cover"
                               onError={(e) => {
                                 e.target.src = 'https://via.placeholder.com/200x200?text=Doctor';
@@ -457,7 +464,7 @@ const Doctors = ({ openform }) => {
                     <FaChevronLeft className="w-5 h-5" />
                   </button>
                   <button
-                  aria-label="click here to see next slide"
+                    aria-label="click here to see next slide"
                     onClick={nextSlide}
                     className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-emerald-600 rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
                   >
@@ -472,14 +479,13 @@ const Doctors = ({ openform }) => {
               <div className="flex justify-center gap-2 mt-8">
                 {carouselDoctors.map((_, index) => (
                   <button
-                  aria-label="click here to see the doctor slide"
+                    aria-label="click here to see the doctor slide"
                     key={index}
                     onClick={() => goToSlide(index)}
-                    className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                      index === currentSlide
-                        ? 'bg-emerald-600 scale-125'
-                        : 'bg-emerald-200 hover:bg-emerald-300'
-                    }`}
+                    className={`w-3 h-3 rounded-full transition-all duration-300 ${index === currentSlide
+                      ? 'bg-emerald-600 scale-125'
+                      : 'bg-emerald-200 hover:bg-emerald-300'
+                      }`}
                   />
                 ))}
               </div>

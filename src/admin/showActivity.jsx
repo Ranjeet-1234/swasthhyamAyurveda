@@ -280,6 +280,7 @@ const ActivityPage = () => {
                                                 <td className="px-6 py-4">
                                                     {activity.url ? (
                                                         <a
+                                                            aria-label='View More about Activity'
                                                             href={activity.url}
                                                             target="_blank"
                                                             rel="noopener noreferrer"
