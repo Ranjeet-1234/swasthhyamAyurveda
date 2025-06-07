@@ -28,7 +28,7 @@ const TestimonialPage = () => {
                 const data = await response.json();
                 setTestimonials(data);
             } catch (error) {
-                console.error('Error fetching testimonials:', error);
+                // console.error('Error fetching testimonials:', error);
             }
         };
 
@@ -87,7 +87,7 @@ const TestimonialPage = () => {
 
             resetForm();
         } catch (error) {
-            console.error('Error submitting form:', error);
+            // console.error('Error submitting form:', error);
         }
     };
 
@@ -123,7 +123,7 @@ const TestimonialPage = () => {
             const updatedTestimonials = testimonials.filter((_, i) => i !== index);
             setTestimonials(updatedTestimonials);
         } catch (error) {
-            console.error('Error deleting testimonial:', error);
+            // console.error('Error deleting testimonial:', error);
         }
     };
 
@@ -161,6 +161,7 @@ const TestimonialPage = () => {
                             <p className="text-slate-600">Manage patient testimonials and success stories</p>
                         </div>
                         <button
+                        aria-label="Add New Testimonial"
                             onClick={() => {
                                 resetForm();
                                 setShowForm(true);
@@ -338,6 +339,7 @@ const TestimonialPage = () => {
                                                 <td className="px-6 py-4 text-center">
                                                     <div className="flex items-center justify-center gap-3">
                                                         <button
+                                                        aria-label="Edit"
                                                             onClick={() => handleEdit(originalIndex)}
                                                             className="text-blue-600 hover:text-blue-700 p-2 rounded-lg hover:bg-blue-50 transition"
                                                             title="Edit testimonial"
@@ -345,6 +347,7 @@ const TestimonialPage = () => {
                                                             <Pencil className="w-4 h-4" />
                                                         </button>
                                                         <button
+                                                        aria-label="Delete"
                                                             onClick={() => handleDelete(originalIndex)}
                                                             className="text-red-600 hover:text-red-700 p-2 rounded-lg hover:bg-red-50 transition"
                                                             title="Delete testimonial"
@@ -372,6 +375,7 @@ const TestimonialPage = () => {
                                         {editingIndex !== null ? 'Edit Testimonial' : 'Add New Testimonial'}
                                     </h2>
                                     <button
+                                    aria-label="Close"
                                         onClick={resetForm}
                                         className="hover:bg-slate-100 p-2 rounded-xl transition-colors"
                                         title="Close"
@@ -474,6 +478,7 @@ const TestimonialPage = () => {
 
                                     <div className="flex gap-4 pt-4">
                                         <button
+                                        aria-label="Cancel"
                                             type="button"
                                             onClick={resetForm}
                                             className="flex-1 px-6 py-3 border border-slate-200 text-slate-700 rounded-xl font-semibold hover:bg-slate-50 transition-colors"

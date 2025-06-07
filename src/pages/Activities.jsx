@@ -1,41 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Calendar, Users, Award, Heart, Activity, MapPin, ExternalLink, Loader2 } from 'lucide-react';
-// {
-//   title: "New Doctor Joined",
-//   date: "May 10, 2025",
-//   description: "Dr. Meera Sharma (BAMS, MD) joined our Panchakarma unit, bringing 15 years of specialized experience in traditional therapies.",
-//   image: "https://images.unsplash.com/photo-1582750433449-648ed127bb54?w=400&h=250&fit=crop",
-//   icon: <Users className="w-5 h-5" />,
-//   category: "Team Expansion",
-//   participants: "Medical Staff"
-// },
-// {
-//   title: "World Ayurveda Day",
-//   date: "April 25, 2025",
-//   description: "Celebrated with interactive workshops on traditional Ayurvedic therapies, herbal medicine preparation, and wellness consultations.",
-//   image: "https://images.unsplash.com/photo-1512290923902-8a9f81dc236c?w=400&h=250&fit=crop",
-//   icon: <Award className="w-5 h-5" />,
-//   category: "Educational Event",
-//   participants: "150+ Attendees"
-// },
-// {
-//   title: "Panchakarma Workshop",
-//   date: "April 15, 2025",
-//   description: "Conducted specialized training workshop for healthcare professionals on advanced Panchakarma techniques and patient care protocols.",
-//   image: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=250&fit=crop",
-//   icon: <Users className="w-5 h-5" />,
-//   category: "Professional Training",
-//   participants: "50+ Doctors"
-// },
-// {
-//   title: "Health Awareness Drive",
-//   date: "April 5, 2025",
-//   description: "Organized community health awareness program focusing on preventive Ayurvedic practices and lifestyle modifications for better health.",
-//   image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1f?w=400&h=250&fit=crop",
-//   icon: <Heart className="w-5 h-5" />,
-//   category: "Health Campaign",
-//   participants: "300+ People"
-// }
+
 export default function RecentActivityCarousel() {
     const scrollRef = useRef(null);
     const [activities, setActivities] = useState([]);
@@ -56,7 +21,7 @@ export default function RecentActivityCarousel() {
                 setActivities(data);
                 setError(null);
             } catch (error) {
-                console.error('Error fetching activities:', error);
+                // // console.error('Error fetching activities:', error);
                 setError(error.message);
             } finally {
                 setLoading(false);
@@ -184,6 +149,7 @@ export default function RecentActivityCarousel() {
                             {error}
                         </p>
                         <button 
+                            aria-label='click here to load the activities'
                             onClick={() => window.location.reload()}
                             className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
                         >
@@ -287,10 +253,11 @@ export default function RecentActivityCarousel() {
                                                 </div>
                                                 {item.url ? (
                                                     <button 
+                                                        aria-label='know more about the our recent activity'
                                                         onClick={() => handleReadMore(item)}
                                                         className="text-green-600 hover:text-green-700 font-semibold text-xs flex items-center group-hover:translate-x-1 transition-transform"
                                                     >
-                                                        Read More
+                                                        click here
                                                         <ExternalLink className="w-3 h-3 ml-1" />
                                                     </button>
                                                 ) : (

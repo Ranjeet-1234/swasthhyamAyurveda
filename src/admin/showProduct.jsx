@@ -15,7 +15,7 @@ export default function FeatureProductTable() {
             const data = await res.json();
             setProducts(data);
           } catch (err) {
-            console.error('Error fetching products:', err);
+            // console.error('Error fetching products:', err);
           }
         };
       
@@ -73,7 +73,7 @@ export default function FeatureProductTable() {
         if (res.ok) {
             setProducts(products.filter(p => p._id !== id));
         } else {
-            console.error('Delete failed');
+            // console.error('Delete failed');
         }
     };
 
@@ -94,6 +94,7 @@ export default function FeatureProductTable() {
                             <p className="text-gray-600 mt-1">Manage your product catalog</p>
                         </div>
                         <button 
+                        aria-label="Add Product"
                             onClick={() => openModal()} 
                             className="group bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-6 py-3 rounded-xl shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-200 flex items-center gap-2 font-medium"
                         >
@@ -131,6 +132,7 @@ export default function FeatureProductTable() {
                                                 <h3 className="text-lg font-medium text-gray-900 mb-2">No products found</h3>
                                                 <p className="text-gray-500 mb-4">Get started by adding your first product.</p>
                                                 <button 
+                                                aria-label="Add Product"
                                                     onClick={() => openModal()} 
                                                     className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white px-4 py-2 rounded-lg hover:shadow-lg transition-all duration-200"
                                                 >
@@ -157,9 +159,6 @@ export default function FeatureProductTable() {
                                                                 <Image className="w-6 h-6 text-gray-400" />
                                                             </div>
                                                         )}
-                                                        {/* <div className="absolute inset-0 bg-black/20 rounded-xl opacity-0 group-hover/image:opacity-100 transition-opacity duration-200 flex items-center justify-center">
-                                                            <ExternalLink className="w-4 h-4 text-white" />
-                                                        </div> */}
                                                     </a>
                                                 </div>
                                             </td>
@@ -171,6 +170,7 @@ export default function FeatureProductTable() {
                                             <td className="px-6 py-4">
                                                 <div className="flex items-center gap-3">
                                                     <button 
+                                                    aria-label="Edit"
                                                         onClick={() => openModal(product)} 
                                                         className="p-2 text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-lg transition-all duration-200 group/edit"
                                                         title="Edit product"
@@ -178,6 +178,7 @@ export default function FeatureProductTable() {
                                                         <Edit3 className="w-5 h-5 group-hover/edit:scale-110 transition-transform duration-200" />
                                                     </button>
                                                     <button 
+                                                    aria-label="Delete"
                                                         onClick={() => handleDelete(product._id)} 
                                                         className="p-2 text-red-600 hover:text-red-700 hover:bg-red-50 rounded-lg transition-all duration-200 group/delete"
                                                         title="Delete product"
@@ -201,6 +202,7 @@ export default function FeatureProductTable() {
                     <div className="bg-white rounded-3xl w-full max-w-md shadow-2xl transform transition-all duration-300 scale-100 border border-white/20">
                         <div className="relative p-6 border-b border-gray-100">
                             <button 
+                            aria-label="Close"
                                 onClick={closeModal} 
                                 className="absolute top-4 right-4 p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full transition-all duration-200"
                             >
@@ -251,6 +253,7 @@ export default function FeatureProductTable() {
                         
                         <div className="p-6 bg-gray-50/50 rounded-b-3xl">
                             <button
+                                aria-label="Save Product"
                                 onClick={handleSave}
                                 className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 px-6 rounded-xl hover:shadow-lg transition-all duration-200 flex items-center justify-center gap-2 font-medium"
                             >

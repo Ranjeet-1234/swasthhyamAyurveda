@@ -1,6 +1,6 @@
 import React, { useState, lazy, Suspense, useCallback, useMemo, useEffect } from "react";
 import { MessagesSquare, CalendarCheck, PhoneCall } from "lucide-react";
-
+import loading from '../media/loading.gif'
 // Lazy loaded components
 const HeaderBanner = lazy(() => import("./HeaderBanner"));
 const Doctors = lazy(() => import("./Doctors"));
@@ -32,7 +32,7 @@ const LoadingSpinner = React.memo(({ variant = "default", className = "" }) => {
         <div className={`${size.container} relative flex items-center justify-center`}>
           <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-4 shadow-lg border border-white/20">
             <img 
-              src="https://miro.medium.com/v2/resize:fit:720/format:webp/0*4Gzjgh9Y7Gu8KEtZ.gif"
+              src={loading}
               alt="Loading..."
               className="w-full h-full object-contain rounded-lg"
               style={{ maxWidth: '200px', maxHeight: '200px' }}
@@ -95,7 +95,7 @@ const Home = () => {
   useEffect(()=>{
     setTimeout(()=>{
       setBook(true);
-    },10000)
+    },20000)
   },[])
 
   // Memoized navigation items to prevent recreation
@@ -104,7 +104,7 @@ const Home = () => {
       id: 'chat',
       label: 'WhatsApp',
       icon: MessagesSquare,
-      href: 'https://wa.me/911234567890',
+      href: 'https://wa.me/9529396371',
       gradient: 'from-green-500 to-green-600'
     },
     {

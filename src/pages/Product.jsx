@@ -10,7 +10,7 @@ export default function FeaturedProducts() {
         const data = await res.json();
         setProducts(data);
       } catch (err) {
-        console.error('Error fetching products:', err);
+        // console.error('Error fetching products:', err);
       }
     };
 

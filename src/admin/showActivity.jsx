@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Pencil, Trash2, X, Search, Calendar, Users, ExternalLink} from 'lucide-react';
+import { Plus, Pencil, Trash2, X, Search, Calendar, Users, ExternalLink } from 'lucide-react';
 
 const ActivityPage = () => {
     const [activities, setActivities] = useState([]);
@@ -26,7 +26,7 @@ const ActivityPage = () => {
                 const data = await response.json();
                 setActivities(data);
             } catch (error) {
-                console.error('Error fetching activities:', error);
+                // console.error('Error fetching activities:', error);
             }
         };
 
@@ -114,18 +114,18 @@ const ActivityPage = () => {
 
             resetForm();
         } catch (error) {
-            console.error('Error submitting form:', error);
+            // console.error('Error submitting form:', error);
         }
     };
 
     const resetForm = () => {
-        setFormData({ 
-            title: '', 
-            description: '', 
-            image: '', 
-            date: '', 
-            participants: '', 
-            url: '' 
+        setFormData({
+            title: '',
+            description: '',
+            image: '',
+            date: '',
+            participants: '',
+            url: ''
         });
         setEditingIndex(null);
         setShowForm(false);
@@ -145,7 +145,7 @@ const ActivityPage = () => {
         const activityToDelete = activities[index];
         const token = localStorage.getItem('token');
         if (!activityToDelete._id) return;
-    
+
         try {
             const response = await fetch(`https://swasthhyam-backend.onrender.com/api/activities/${activityToDelete._id}`, {
                 method: 'DELETE',
@@ -154,13 +154,13 @@ const ActivityPage = () => {
                     'Authorization': `Bearer ${token}`
                 },
             });
-    
+
             if (!response.ok) throw new Error('Failed to delete activity');
-    
+
             const updatedActivities = activities.filter((_, i) => i !== index);
             setActivities(updatedActivities);
         } catch (error) {
-            console.error('Error deleting activity:', error);
+            // console.error('Error deleting activity:', error);
         }
     };
 
@@ -175,6 +175,7 @@ const ActivityPage = () => {
                             <p className="text-slate-600">Manage outreach activities, camps, and community events</p>
                         </div>
                         <button
+                            aria-label=" Add New Activity"
                             onClick={() => {
                                 resetForm();
                                 setShowForm(true);
@@ -294,6 +295,7 @@ const ActivityPage = () => {
                                                 <td className="px-6 py-4 text-center">
                                                     <div className="flex items-center justify-center gap-3">
                                                         <button
+                                                            aria-label="Edit"
                                                             onClick={() => handleEdit(originalIndex)}
                                                             className="text-blue-600 hover:text-blue-700 p-2 rounded-lg hover:bg-blue-50 transition"
                                                             title="Edit activity"
@@ -301,6 +303,7 @@ const ActivityPage = () => {
                                                             <Pencil className="w-4 h-4" />
                                                         </button>
                                                         <button
+                                                            aria-label="Delete"
                                                             onClick={() => handleDelete(originalIndex)}
                                                             className="text-red-600 hover:text-red-700 p-2 rounded-lg hover:bg-red-50 transition"
                                                             title="Delete activity"
@@ -328,6 +331,7 @@ const ActivityPage = () => {
                                         {editingIndex !== null ? 'Edit Activity' : 'Add New Activity'}
                                     </h2>
                                     <button
+                                        aria-label="Close"
                                         onClick={resetForm}
                                         className="hover:bg-slate-100 p-2 rounded-xl transition-colors"
                                         title="Close"
@@ -412,6 +416,7 @@ const ActivityPage = () => {
 
                                     <div className="flex gap-4 pt-4">
                                         <button
+                                            aria-label="Cancel"
                                             type="button"
                                             onClick={resetForm}
                                             className="flex-1 px-6 py-3 border border-slate-200 text-slate-700 rounded-xl font-semibold hover:bg-slate-50 transition-colors"

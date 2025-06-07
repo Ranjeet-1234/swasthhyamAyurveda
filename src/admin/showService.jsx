@@ -15,12 +15,6 @@ const AdminServicesPage = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [selectedCategory, setSelectedCategory] = useState('all');
 
-    // Mock initial data
-    // import { useEffect, useState } from 'react';
-    // import axios from 'axios'; // Or use fetch
-
-    // const YourComponent = () => {
-    //   const [services, setServices] = useState([]);
     useEffect(() => {
         const fetchServices = async () => {
             try {
@@ -32,7 +26,7 @@ const AdminServicesPage = () => {
                 // console.log(data)
                 setServices(data);
             } catch (error) {
-                console.error('Error fetching services:', error);
+                // console.error('Error fetching services:', error);
             }
         };
 
@@ -89,7 +83,7 @@ const AdminServicesPage = () => {
 
             resetForm();
         } catch (error) {
-            console.error('Error submitting form:', error);
+            // console.error('Error submitting form:', error);
         }
     };
 
@@ -125,7 +119,7 @@ const AdminServicesPage = () => {
             const updatedServices = services.filter((_, i) => i !== index);
             setServices(updatedServices);
         } catch (error) {
-            console.error('Error deleting service:', error);
+            // console.error('Error deleting service:', error);
         }
     };
     
@@ -150,6 +144,7 @@ const AdminServicesPage = () => {
                             <p className="text-slate-600">Manage your Ayurvedic services and treatments</p>
                         </div>
                         <button
+                            aria-label="Add New Service"
                             onClick={() => {
                                 resetForm();
                                 setShowForm(true);
@@ -186,54 +181,6 @@ const AdminServicesPage = () => {
                     </div>
                 </div>
 
-                {/* Statistics Cards */}
-                {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
-                <Star className="w-6 h-6 text-emerald-600" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold text-slate-800">{services.length}</p>
-                <p className="text-slate-600 text-sm">Total Services</p>
-              </div>
-            </div>
-          </div>
-          <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
-                <Eye className="w-6 h-6 text-blue-600" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold text-slate-800">{filteredServices.length}</p>
-                <p className="text-slate-600 text-sm">Filtered Results</p>
-              </div>
-            </div>
-          </div>
-          <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center">
-                <Clock className="w-6 h-6 text-purple-600" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold text-slate-800">{services.filter(s => s.category === 'therapy').length}</p>
-                <p className="text-slate-600 text-sm">Therapies</p>
-              </div>
-            </div>
-          </div>
-          <div className="bg-white rounded-xl p-6 border border-slate-200 shadow-sm">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-orange-100 rounded-xl flex items-center justify-center">
-                <Plus className="w-6 h-6 text-orange-600" />
-              </div>
-              <div>
-                <p className="text-2xl font-bold text-slate-800">{services.filter(s => s.category === 'massage').length}</p>
-                <p className="text-slate-600 text-sm">Massages</p>
-              </div>
-            </div>
-          </div>
-        </div> */}
-
                 {/* Services Grid */}
                 <div className="grid gap-6">
                     {filteredServices.length === 0 ? (
@@ -249,7 +196,7 @@ const AdminServicesPage = () => {
                             <table className="w-full text-sm text-left text-slate-600 border mt-4 rounded-xl overflow-hidden">
                                 <thead className="bg-slate-100 text-slate-700 text-xs uppercase">
                                     <tr>
-                                        <th className="px-6 py-4">#</th>
+                                        <th className="px-6 py-4">SR no.</th>
                                         <th className="px-6 py-4">Image</th>
                                         <th className="px-6 py-4">Service</th>
                                         <th className="px-6 py-4">Category</th>
@@ -304,6 +251,7 @@ const AdminServicesPage = () => {
                                                 <td className="px-6 py-4 text-center">
                                                     <div className="flex items-center justify-center gap-3">
                                                         <button
+                                                        aria-label="Edit"
                                                             onClick={() => handleEdit(originalIndex)}
                                                             className="text-blue-600 hover:text-blue-700 p-2 rounded-lg hover:bg-blue-50 transition"
                                                             title="Edit service"
@@ -311,6 +259,7 @@ const AdminServicesPage = () => {
                                                             <Pencil className="w-4 h-4" />
                                                         </button>
                                                         <button
+                                                        aria-label="Delete"
                                                             onClick={() => handleDelete(originalIndex)}
                                                             className="text-red-600 hover:text-red-700 p-2 rounded-lg hover:bg-red-50 transition"
                                                             title="Delete service"
@@ -340,6 +289,7 @@ const AdminServicesPage = () => {
                                         {editingIndex !== null ? 'Edit Service' : 'Add New Service'}
                                     </h2>
                                     <button
+                                    aria-label="Close"
                                         onClick={resetForm}
                                         className="hover:bg-slate-100 p-2 rounded-xl transition-colors"
                                         title="Close"
@@ -426,6 +376,7 @@ const AdminServicesPage = () => {
 
                                     <div className="flex gap-4 pt-4">
                                         <button
+                                        aria-label="Cancel"
                                             type="button"
                                             onClick={resetForm}
                                             className="flex-1 px-6 py-3 border border-slate-200 text-slate-700 rounded-xl font-semibold hover:bg-slate-50 transition-colors"

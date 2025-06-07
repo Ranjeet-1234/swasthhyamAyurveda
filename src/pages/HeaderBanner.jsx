@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+// import { Link } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import banner1 from '../media/banner1.webp'
 import banner2 from '../media/banner2.webp'
@@ -61,33 +62,61 @@ const HeaderBanner = ({ openform }) => {
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-8">
-              <a href="/" className="text-white/90 hover:text-white transition-colors duration-300 text-lg font-medium">
+              <a
+                href="/"
+                className="text-white/90 hover:text-white transition-colors duration-300 text-lg font-medium"
+              >
                 Home
               </a>
-              <a href="#about" className="text-white/90 hover:text-white transition-colors duration-300 text-lg font-medium">
+
+              <a
+                href="#about"
+                className="text-white/90 hover:text-white transition-colors duration-300 text-lg font-medium py-2"
+              >
                 About
               </a>
-              <a href="#services" className="text-white/90 hover:text-white transition-colors duration-300 text-lg font-medium">
+
+              <a
+                href="#services"
+                className="text-white/90 hover:text-white transition-colors duration-300 text-lg font-medium"
+              >
                 Services
               </a>
-              <a href="#products" className="text-white/90 hover:text-white transition-colors duration-300 text-lg font-medium">
+
+              <a
+                href="#products"
+                className="text-white/90 hover:text-white transition-colors duration-300 text-lg font-medium"
+              >
                 Products
               </a>
-              <a href="#contact" className="text-white/90 hover:text-white transition-colors duration-300 text-lg font-medium">
+
+              <a
+                href="#contact"
+                className="text-white/90 hover:text-white transition-colors duration-300 text-lg font-medium"
+              >
                 Contact
               </a>
-              <a href="/book-appointment">
-                <button className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 px-6 py-3 rounded-full text-white font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl">
-                  Book Now
-                </button>
-              </a>
-              <a href="/login" className="text-white/90 hover:text-white transition-colors duration-300 text-lg font-medium py-2">
+
+              <button
+                aria-label="Confirm appointment booking"
+                onClick={openform}
+                className="bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 px-6 py-3 rounded-full text-white font-semibold transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+              >
+                Book Now
+              </button>
+
+              <a
+                href="/login"
+                className="text-white/90 hover:text-white transition-colors duration-300 text-lg font-medium py-2"
+              >
                 Login
               </a>
             </div>
 
+
             {/* Mobile Menu Button */}
             <button
+              aria-label="close the appointment form"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="lg:hidden p-2 rounded-md hover:bg-white/10 transition-colors duration-300"
             >
@@ -114,17 +143,21 @@ const HeaderBanner = ({ openform }) => {
                 <a href="#contact" className="text-white/90 hover:text-white transition-colors duration-300 text-lg font-medium py-2">
                   Contact
                 </a>
-                <a className="mt-4">
-                  <button
-                    onClick={openform}
-                    className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 px-6 py-3 rounded-full text-white font-semibold transition-all duration-300 shadow-lg">
-                    Book Now
-                  </button>
-                </a>
+
+                {/* Button without <a> wrapper */}
+                <button
+                  aria-label="Confirm appointment booking"
+                  onClick={openform}
+                  className="mt-4 w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 px-6 py-3 rounded-full text-white font-semibold transition-all duration-300 shadow-lg"
+                >
+                  Book Now
+                </button>
+
                 <a href="/login" className="text-white/90 hover:text-white transition-colors duration-300 text-lg font-medium py-2">
                   Login
                 </a>
               </div>
+
             </div>
           </div>
         </nav>
@@ -157,18 +190,20 @@ const HeaderBanner = ({ openform }) => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4 lg:gap-6">
-              <a>
                 <button
+                  aria-label="Confirm appointment booking"
                   onClick={openform}
                   className="w-full sm:w-auto bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 px-8 py-4 text-lg lg:text-xl font-semibold rounded-full transition-all duration-300 transform hover:scale-105 shadow-xl hover:shadow-2xl">
                   Book Appointment
                 </button>
+              <a
+                href="#services"
+                aria-label="Click here to see our services"
+                className="w-full sm:w-auto bg-white/10 backdrop-blur-sm hover:bg-white/20 border border-white/30 hover:border-white/50 px-8 py-4 text-lg lg:text-xl font-semibold rounded-full transition-all duration-300 transform hover:scale-105 text-center"
+              >
+                Our Services
               </a>
-              <a href="#services">
-                <button className="w-full sm:w-auto bg-white/10 backdrop-blur-sm hover:bg-white/20 border border-white/30 hover:border-white/50 px-8 py-4 text-lg lg:text-xl font-semibold rounded-full transition-all duration-300 transform hover:scale-105">
-                  Our Services
-                </button>
-              </a>
+
             </div>
 
             {/* Trust Indicators */}

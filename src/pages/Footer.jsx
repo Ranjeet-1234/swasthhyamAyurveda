@@ -65,7 +65,8 @@ export default function Footer() {
                   <li key={link}>
                     <a
                       href={`#${link}`}
-                      className="text-gray-300 hover:text-emerald-300 transition-colors duration-300 text-sm flex items-center gap-2 group"
+                      aria-label={`Go to ${link} section`}
+                      className="text-gray-300 hover:text-emerald-300 transition-colors duration-300 text-sm flex items-center gap-2 group capitalize"
                     >
                       <ChevronRight className="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                       {link}
@@ -73,6 +74,7 @@ export default function Footer() {
                   </li>
                 ))}
               </ul>
+
             </div>
 
             {/* Contact */}
@@ -104,7 +106,7 @@ export default function Footer() {
 
                 <div className="flex items-start gap-3 group">
                   <div className="w-10 h-10 bg-emerald-800/30 rounded-lg flex items-center justify-center group-hover:bg-emerald-700/50 transition-colors duration-300">
-                    <MapPin className="w-4 h-4 text-emerald-300" />
+                    <MapPin className="w-10 h-4 text-emerald-300" />
                   </div>
                   <div>
                     <p className="text-sm text-gray-400">Visit Us</p>
@@ -129,10 +131,10 @@ export default function Footer() {
                 <p className="text-sm text-gray-400 mb-3">Follow Us</p>
                 <div className="flex gap-3">
                   {[
-                    { icon: Facebook, bg: 'bg-blue-600', hover: 'hover:bg-blue-500', label: 'Facebook' ,url:'https://www.facebook.com/profile.php?id=61574797145128&mibextid=ZbWKwL'},
-                    { icon: Instagram, bg: 'bg-pink-600', hover: 'hover:bg-pink-500', label: 'Instagram',url:'https://www.instagram.com/accounts/login/?next=%2Fswasthhyam_knee_spine_expert%2F&source=omni_redirect' },
-                    { icon: Youtube, bg: 'bg-red-700', hover: 'hover:bg-red-600', label: 'YouTube',url:'https://www.youtube.com/@SwasthhyamAyurveda' }
-                  ].map(({ icon: Icon, bg, hover, label ,url }, i) => (
+                    { icon: Facebook, bg: 'bg-blue-600', hover: 'hover:bg-blue-500', label: 'Facebook', url: 'https://www.facebook.com/profile.php?id=61574797145128&mibextid=ZbWKwL' },
+                    { icon: Instagram, bg: 'bg-pink-600', hover: 'hover:bg-pink-500', label: 'Instagram', url: 'https://www.instagram.com/accounts/login/?next=%2Fswasthhyam_knee_spine_expert%2F&source=omni_redirect' },
+                    { icon: Youtube, bg: 'bg-red-700', hover: 'hover:bg-red-600', label: 'YouTube', url: 'https://www.youtube.com/@SwasthhyamAyurveda' }
+                  ].map(({ icon: Icon, bg, hover, label, url }, i) => (
                     <a
                       key={i}
                       href={url}
@@ -162,7 +164,7 @@ export default function Footer() {
                   placeholder="Enter your email"
                   className="flex-1 md:w-64 px-4 py-3 bg-slate-800/50 border border-slate-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500"
                 />
-                <button className="px-6 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 whitespace-nowrap">
+                <button aria-label="Subscrible for more updates" className="px-6 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 whitespace-nowrap">
                   Subscribe
                 </button>
               </div>

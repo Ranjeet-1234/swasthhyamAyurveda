@@ -83,7 +83,7 @@ const Services = ({ openform }) => {
                 // console.log(grouped)
                 setServices(grouped);
             } catch (err) {
-                console.error("Failed to fetch services:", err);
+                // console.error("Failed to fetch services:", err);
             } finally {
                 setLoading(false);
             }
@@ -136,6 +136,7 @@ const Services = ({ openform }) => {
                         const Icon = categoryIcons[category];
                         return (
                             <button
+                                aria-label="Show more Categories"
                                 key={category}
                                 onClick={() => setActiveIndex(index)}
                                 className={`group flex items-center gap-2 px-4 py-2 sm:px-5 sm:py-2.5 rounded-xl text-sm sm:text-base font-medium transition-all duration-300 hover:scale-105 ${activeTab === category
@@ -194,7 +195,7 @@ const Services = ({ openform }) => {
                                                     target="_blank"
                                                     rel="noopener noreferrer"
                                                     className="inline-flex items-center justify-center bg-gradient-to-r from-emerald-600 to-green-500 text-white font-medium py-2 px-4 rounded-lg text-sm transition-all duration-300 hover:scale-105">
-                                                    Learn More
+                                                    learn more
                                                 </a>
                                             </div>
                                         </div>
@@ -218,7 +219,7 @@ const Services = ({ openform }) => {
                                                         target="_blank"
                                                         rel="noopener noreferrer"
                                                         className="inline-flex items-center justify-center bg-gradient-to-r from-emerald-600 to-green-500 text-white font-medium py-2 px-4 rounded-lg text-sm transition-all duration-300 hover:scale-105">
-                                                        Learn More
+                                                        learn more
                                                     </a>
                                                 </div>
                                             </div>
@@ -228,18 +229,6 @@ const Services = ({ openform }) => {
                                         </p>
                                     </>
                                 )}
-
-                                {/* {isMobile && (
-                                    <div className="w-full mt-4 flex flex-col items-center gap-2">
-                                        <p className="text-center text-gray-800 font-semibold text-sm">{item.name}</p>
-                                        <button className="bg-gradient-to-r from-emerald-600 to-green-500 text-white font-medium py-2 px-4 rounded-lg text-sm transition-all duration-300 hover:scale-105">
-                                            Learn More
-                                        </button>
-                                    </div>
-                                )} */}
-
-                                {/* Disorder Name Below */}
-
 
                             </motion.div>
 
@@ -257,6 +246,7 @@ const Services = ({ openform }) => {
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <button
+                                aria-label="Confirm appointment booking"
                                 onClick={openform}
                                 className="bg-white text-emerald-600 hover:bg-emerald-50 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 shadow">
                                 Book Consultation

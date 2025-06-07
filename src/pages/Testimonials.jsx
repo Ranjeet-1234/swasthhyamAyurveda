@@ -17,7 +17,7 @@ export default function PatientTestimonials() {
         }));
         setTestimonials(enriched);
       } catch (err) {
-        console.error('Error fetching testimonials:', err);
+        // console.error('Error fetching testimonials:', err);
       }
     };
 
@@ -166,18 +166,6 @@ export default function PatientTestimonials() {
             </div>
           ))}
         </div>
-
-
-        {/* Call to Action */}
-        {/* <div className="text-center mt-16">
-          <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-8 border border-green-100 shadow-sm max-w-2xl mx-auto">
-            <h3 className="text-2xl font-bold text-gray-800 mb-4">Ready to Start Your Healing Journey?</h3>
-            <p className="text-gray-600 mb-6">Join hundreds of patients who have transformed their lives with our personalized care</p>
-            <button className="bg-gradient-to-r from-green-500 to-emerald-600 text-white px-8 py-4 rounded-full font-semibold shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
-              Book Your Consultation
-            </button>
-          </div>
-        </div> */}
       </div>
     </section>
   );

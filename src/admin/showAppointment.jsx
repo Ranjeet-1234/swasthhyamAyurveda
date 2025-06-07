@@ -24,7 +24,7 @@ export default function AllAppointments() {
         const data = await res.json();
         setAppointments(data);
       } catch (err) {
-        console.error("Failed to fetch appointments", err);
+        // console.error("Failed to fetch appointments", err);
         // You can add error state handling here if needed
         // setError(err.message);
       } finally {
@@ -181,6 +181,7 @@ export default function AllAppointments() {
               {/* View Toggle */}
               <div className="flex bg-gray-100 rounded-lg p-1">
                 <button
+                  aria-label="View in Table"
                   onClick={() => setViewMode('table')}
                   className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
                     viewMode === 'table' 
@@ -191,6 +192,7 @@ export default function AllAppointments() {
                   Table
                 </button>
                 <button
+                  aria-label="View in Cards"
                   onClick={() => setViewMode('cards')}
                   className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
                     viewMode === 'cards' 

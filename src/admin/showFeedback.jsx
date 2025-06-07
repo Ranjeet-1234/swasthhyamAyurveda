@@ -15,7 +15,7 @@ export default function AdminFeedbackPage() {
     const fetchFeedback = async () => {
       const token = localStorage.getItem('token');
       try {
-        const res = await fetch('http://localhost:5000/api/feedback', {
+        const res = await fetch('https://swasthhyam-backend.onrender.com/api/feedback', {
           headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
@@ -26,7 +26,7 @@ export default function AdminFeedbackPage() {
         setFeedbacks(data);
         setFilteredFeedbacks(data);
       } catch (error) {
-        console.error('Error:', error);
+        // console.error('Error:', error);
       } finally {
         setLoading(false);
       }

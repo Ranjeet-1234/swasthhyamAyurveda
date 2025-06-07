@@ -39,7 +39,7 @@ export default function DoctorManagement() {
             // console.log("Fetched doctors:", data);
             setDoctors(Array.isArray(data) ? data : []);
         } catch (error) {
-            console.error("Error fetching doctors:", error);
+            // console.error("Error fetching doctors:", error);
             setError("Failed to fetch doctors. Please try again.");
             setDoctors([]);
         } finally {
@@ -87,14 +87,14 @@ export default function DoctorManagement() {
             }
 
             const result = await response.json();
-            console.log("Doctor created:", result);
+            // console.log("Doctor created:", result);
             
             // Refresh the doctors list
             await fetchDoctors();
             resetForm();
             setError("");
         } catch (error) {
-            console.error("Error creating doctor:", error);
+            // console.error("Error creating doctor:", error);
             setError(error.message || "Failed to create doctor. Please try again.");
         } finally {
             setLoading(false);
@@ -124,12 +124,12 @@ export default function DoctorManagement() {
                 throw new Error(errorData.message || `HTTP error! status: ${response.status}`);
             }
 
-            console.log("Doctor deleted successfully");
+            // console.log("Doctor deleted successfully");
             
             // Refresh the doctors list
             await fetchDoctors();
         } catch (error) {
-            console.error("Error deleting doctor:", error);
+            // console.error("Error deleting doctor:", error);
             setError(error.message || "Failed to delete doctor. Please try again.");
         } finally {
             setLoading(false);
@@ -172,6 +172,7 @@ export default function DoctorManagement() {
                         />
                     </div>
                     <button
+                        aria-label="Add Doctor"
                         onClick={() => setShowForm(!showForm)}
                         className="flex items-center justify-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all transform hover:scale-105 shadow-lg"
                     >
@@ -194,6 +195,7 @@ export default function DoctorManagement() {
                             </div>
                             <div className="ml-auto pl-3">
                                 <button
+                                aria-label="View Error"
                                     onClick={() => setError("")}
                                     className="inline-flex text-red-400 hover:text-red-600"
                                 >
@@ -255,6 +257,7 @@ export default function DoctorManagement() {
                                     {loading ? "Processing..." : (editingId ? "Update Doctor" : "Add Doctor")}
                                 </button>
                                 <button
+                                aria-label="Cancel"
                                     type="button"
                                     onClick={resetForm}
                                     className="flex-1 sm:flex-none bg-gray-100 text-gray-700 py-3 px-6 rounded-xl hover:bg-gray-200 transition-all font-medium"
@@ -329,6 +332,7 @@ export default function DoctorManagement() {
                                                 </td>
                                                 <td className="py-4 px-6">
                                                     <button
+                                                    aria-label="Delete"
                                                         onClick={() => handleDelete(doc._id)}
                                                         className="p-2 text-red-600 hover:text-red-800 hover:bg-red-50 rounded-lg transition-all"
                                                         title="Delete doctor"
@@ -365,6 +369,7 @@ export default function DoctorManagement() {
                                                 </div>
                                             </div>
                                             <button
+                                            aria-label="Delete"
                                                 onClick={() => handleDelete(doc._id)}
                                                 className="p-2 text-red-600 hover:text-red-800 hover:bg-red-50 rounded-lg transition-all ml-2"
                                             >

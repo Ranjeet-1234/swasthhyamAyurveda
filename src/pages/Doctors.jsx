@@ -72,7 +72,7 @@ const Doctors = ({ openform }) => {
         setCarouselDoctors(carouselDocs);
         
       } catch (err) {
-        console.error('Error fetching doctors:', err);
+        // // console.error('Error fetching doctors:', err);
         setError(`Failed to load doctors: ${err.message}`);
         
         // Optional: Set some dummy data for development/testing
@@ -142,6 +142,7 @@ const Doctors = ({ openform }) => {
         <div className="text-center bg-white p-8 rounded-xl shadow-lg">
           <p className="text-xl text-red-600 mb-4">{error}</p>
           <button 
+          aria-label="Retry the booking appointment"
             onClick={() => window.location.reload()} 
             className="bg-emerald-600 text-white px-6 py-2 rounded-lg hover:bg-emerald-700 transition-colors"
           >
@@ -294,6 +295,8 @@ const Doctors = ({ openform }) => {
                       )}
 
                       <button 
+                        aria-label="Confirm Consultation booking"
+
                         onClick={openform}
                         className={`${isMobile ? 'w-full' : ''} mt-4 md:mt-0 bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl`}
                       >
@@ -390,6 +393,7 @@ const Doctors = ({ openform }) => {
                         <div className="flex items-center justify-between">
                           {isMobile ? (
                             <button 
+                              aria-label='Confirm consultation Booking'
                               onClick={openform}
                               className="w-full bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white px-6 py-3 rounded-full font-semibold transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-xl"
                             >
@@ -411,6 +415,7 @@ const Doctors = ({ openform }) => {
                                 ))}
                               </div>
                               <button 
+                                aria-label='Open and Appointment booking form '
                                 onClick={openform}
                                 className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-2 rounded-full font-medium transition-all duration-300 hover:scale-105 shadow-lg"
                               >
@@ -445,12 +450,14 @@ const Doctors = ({ openform }) => {
               {!isMobile && carouselDoctors.length > 1 && (
                 <>
                   <button
+                    aria-label="Click here to see Previous slide"
                     onClick={prevSlide}
                     className="absolute left-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-emerald-600 rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
                   >
                     <FaChevronLeft className="w-5 h-5" />
                   </button>
                   <button
+                  aria-label="click here to see next slide"
                     onClick={nextSlide}
                     className="absolute right-4 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white text-emerald-600 rounded-full p-3 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110"
                   >
@@ -465,6 +472,7 @@ const Doctors = ({ openform }) => {
               <div className="flex justify-center gap-2 mt-8">
                 {carouselDoctors.map((_, index) => (
                   <button
+                  aria-label="click here to see the doctor slide"
                     key={index}
                     onClick={() => goToSlide(index)}
                     className={`w-3 h-3 rounded-full transition-all duration-300 ${

@@ -1,7 +1,7 @@
 import React from 'react';
 import { MapPin, Phone, Clock, Hospital, Shield, Leaf } from 'lucide-react';
 
-export default function HospitalLocation({openform}) {
+export default function HospitalLocation({ openform }) {
   function openGoogleMapsDirections() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition((position) => {
@@ -118,9 +118,10 @@ export default function HospitalLocation({openform}) {
                 </div>
 
                 <div className="mt-8 pt-6 border-t border-gray-100">
-                  <button 
-                  onClick={openform}
-                  className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-semibold py-4 px-6 rounded-xl hover:from-emerald-700 hover:to-teal-700 transform hover:scale-[1.02] transition-all duration-200 shadow-lg hover:shadow-xl">
+                  <button
+                    aria-label="Confirm appointment booking"
+                    onClick={openform}
+                    className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-semibold py-4 px-6 rounded-xl hover:from-emerald-700 hover:to-teal-700 transform hover:scale-[1.02] transition-all duration-200 shadow-lg hover:shadow-xl">
                     Book Your Consultation
                   </button>
                 </div>
@@ -136,17 +137,6 @@ export default function HospitalLocation({openform}) {
                 <p className="text-gray-600">Easily accessible location with ample parking facilities</p>
               </div>
               <div className="rounded-2xl overflow-hidden shadow-inner border-4 border-white h-80 lg:h-96">
-                {/* <iframe
-                  src="https://maps.app.goo.gl/z1FATigcZPm4dgaW7"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0 }}
-                  allowFullScreen=""
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  title="Swasthya Ayurveda Clinic Location"
-                  className="grayscale-0 hover:grayscale-0 transition-all duration-300"
-                ></iframe> */}
                 <iframe
                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d626.8524892764929!2d73.92869027056258!3d18.502759892952902!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2c1e5e97f506f%3A0xc6e423e94cdaf85b!2sSwasthhyam%20Knee%20%26%20Spine%20Specialist!5e0!3m2!1sen!2sin!4v1749201450969!5m2!1sen!2sin"
                   width="100%"
@@ -162,13 +152,14 @@ export default function HospitalLocation({openform}) {
 
               <div className="mt-6 grid grid-cols-2 gap-3">
                 <button
+                  aria-label="Get Directions to the Hospital"
                   onClick={openGoogleMapsDirections}
                   className="flex items-center justify-center gap-2 py-3 px-4 bg-blue-50 hover:bg-blue-100 text-blue-700 rounded-xl transition-colors duration-200 font-medium">
                   <MapPin className="w-4 h-4" />
                   Get Directions
                 </button>
                 <a href="tel:9529396371" className='w-full'>
-                  <button className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-green-50 hover:bg-green-100 text-green-700 rounded-xl transition-colors duration-200 font-medium">
+                  <button aria-label="Call Now " className="w-full h-full flex items-center justify-center gap-2 py-3 px-4 bg-green-50 hover:bg-green-100 text-green-700 rounded-xl transition-colors duration-200 font-medium">
                     <Phone className="w-4 h-4" />
                     Call Now
                   </button>

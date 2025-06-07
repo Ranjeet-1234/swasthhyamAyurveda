@@ -1,11 +1,11 @@
-import React, { useEffect,useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { 
-  LogOut, 
-  CalendarCheck, 
-  User, 
-  Clock, 
+import {
+  LogOut,
+  CalendarCheck,
+  User,
+  Clock,
   Search,
   Check,
   X,
@@ -14,56 +14,20 @@ import {
 } from 'lucide-react';
 // mongodb+srv://rewatkarranjeet123:HtOShUjfiFUoZh1j@swasthhyam.wxtddxq.mongodb.net/
 
-// const appointments = [
-//   { id: 1, patient: 'Anjali Verma', age: 28, date: '2025-06-01', time: '10:00 AM', symptoms: 'Headache, Nausea', status: 'Pending', priority: 'Medium', phone: '+91 98765 43210' },
-//   { id: 2, patient: 'Ravi Sharma', age: 45, date: '2025-06-01', time: '11:00 AM', symptoms: 'Back pain', status: 'Pending', priority: 'High', phone: '+91 98765 43211' },
-//   { id: 3, patient: 'Sonal Gupta', age: 32, date: '2025-06-01', time: '01:30 PM', symptoms: 'Fatigue', status: 'Accepted', priority: 'Low', phone: '+91 98765 43212' },
-//   { id: 4, patient: 'Arjun Reddy', age: 35, date: '2025-06-01', time: '02:30 PM', symptoms: 'Chest pain', status: 'Pending', priority: 'High', phone: '+91 98765 43213' },
-//   { id: 5, patient: 'Priya Singh', age: 29, date: '2025-06-01', time: '03:30 PM', symptoms: 'Skin rash', status: 'Accepted', priority: 'Medium', phone: '+91 98765 43214' },
-// ];
-
-// const stats = [
-//   { title: 'Total Appointments', value: '24', change: '+12%', icon: CalendarCheck, color: 'blue' },
-//   { title: 'Completed Today', value: '8', change: '+5%', icon: UserCheck, color: 'green' },
-//   { title: 'Pending', value: '5', change: '-2%', icon: Clock, color: 'orange' },
-//   { title: 'Patients This Week', value: '156', change: '+8%', icon: Activity, color: 'purple' },
-// ];
-// [
-//   {
-//     "_id": "683bfb7ad048e02c6f9d4a93",
-//     "patientName": "Ranjeet Rewatkar",
-//     "PatientEmail": "rewatkarranjeet123@gmail.com",
-//     "patientPhone": 9322797220,
-//     "patientAge": 20,
-//     "PatientGender": "male",
-//     "PatientService": "Arthritis",
-//     "PatientAddress": "T1 floar, shivdatta palace, MSEB Road, near walchand college of engineering, vishrambag, sangli\nShivdatta palace",
-//     "date": "2025-06-03T00:00:00.000Z",
-//     "time": "9:00 AM - 1:00 PM",
-//     "doctor": {
-//       "_id": "683b0dc92da74df778771eae",
-//       "name": "Dr. Rohit Sharma",
-//       "email": "rohit@gmail.com"
-//     },
-//     "status": "pending",
-//     "createdAt": "2025-06-01T07:04:26.185Z",
-//     "updatedAt": "2025-06-01T07:04:26.185Z",
-//     "__v": 0
-//   }
-// ]
 export default function DoctorDashboard() {
   const [searchTerm, setSearchTerm] = useState('');
   const [filterStatus, setFilterStatus] = useState('All');
-  // const [showMobileMenu, setShowMobileMenu] = useState(false);
   const [appointments, setAppointments] = useState([]);
   const [doctor, setDoctor] = useState(null);
   const prevCountRef = useRef(0);
+  const [loadingId, setLoadingId] = useState(null);
 
   const navigate = useNavigate();
 
 
   const handleAccept = async (id) => {
     const token = localStorage.getItem('token');
+    setLoadingId(id);
     try {
       await fetch(`https://swasthhyam-backend.onrender.com/api/appointments/${id}/status`, {
         method: 'PATCH',
@@ -73,31 +37,35 @@ export default function DoctorDashboard() {
         },
         body: JSON.stringify({ status: 'confirmed' })
       });
+
+      // const data = await res.json(); // await needed here
+      // console.log(data); // correctly log the response
+
       setAppointments(prev =>
         prev.map(appt => appt.id === id ? { ...appt, status: 'Accepted' } : appt)
       );
     } catch (error) {
-      console.error('Failed to accept:', error);
+      // console.error('Failed to accept:', error);
     }
+
   };
-  
+
   useEffect(() => {
     const fetchData = async () => {
       const token = localStorage.getItem('token');
       const doctorId = localStorage.getItem('doctorId');
-  
-      if (!token || !doctorId){
-      navigate('/login');
-      }  
-      // https://swasthhyam-backend.onrender.com/api/appointments/${doctorId}
+
+      if (!token || !doctorId) {
+        navigate('/login');
+      }
       try {
         const res = await fetch(`https://swasthhyam-backend.onrender.com/api/appointments/${doctorId}`, {
-          method:"GET",
+          method: "GET",
           headers: { Authorization: `Bearer ${token}` }
         });
-  
+
         const data = await res.json();
-        // console.log(data)
+        // console.log(data[0].doctor.name)
         if (data.length > prevCountRef.current) {
           toast.info("📅 New appointment booked!");
         }
@@ -109,45 +77,59 @@ export default function DoctorDashboard() {
           symptoms: appt.PatientService,
           status: appt.status,
           time: appt.time,
+          phone: appt.patientPhone,
+          date: new Date(appt.date).toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric' })
         })));
-        
-        setDoctor(data[0].doctor || null); // assuming your API sends back doctor details too
-  
+
+
+        setDoctor(data[0].doctor.name); // assuming your API sends back doctor details too
+
       } catch (error) {
-        console.error('Failed to fetch appointments:', error);
+        // console.error('Failed to fetch appointments:', error);
       }
     };
-  
+
     fetchData();
     const interval = setInterval(fetchData, 60 * 60 * 1000); // every 1 hour
     return () => clearInterval(interval); // cleanup on unmount
   }, []);
-  
-  const handleReject = (id) => {
-    console.log('Rejecting appointment:', id);
+
+  const handleReject = async (id) => {
+    setLoadingId(id); // Start loading
+    const token = localStorage.getItem('token');
+
+    try {
+      await fetch(`https://swasthhyam-backend.onrender.com/api/appointments/${id}/status`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ status: 'cancelled' })
+      });
+
+      setAppointments(prev =>
+        prev.map(appt => appt.id === id ? { ...appt, status: 'Cancelled' } : appt)
+      );
+    } catch (error) {
+      // console.error('Failed to reject:', error);
+    } finally {
+      setLoadingId(null); // Stop loading
+    }
   };
 
   const filteredAppointments = appointments.filter(appt => {
     const matchesSearch = appt.patient.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         appt.symptoms.toLowerCase().includes(searchTerm.toLowerCase());
+      appt.symptoms.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesFilter = filterStatus === 'All' || appt.status === filterStatus;
     return matchesSearch && matchesFilter;
   });
-  
-  const logout =()=>{
+
+  const logout = () => {
     localStorage.clear('token');
     localStorage.clear('doctorId')
     navigate('/login')
   }
-
-  // const getPriorityColor = (priority) => {
-  //   switch (priority) {
-  //     case 'High': return 'text-red-600 bg-red-50 border-red-200';
-  //     case 'Medium': return 'text-yellow-600 bg-yellow-50 border-yellow-200';
-  //     case 'Low': return 'text-green-600 bg-green-50 border-green-200';
-  //     default: return 'text-gray-600 bg-gray-50 border-gray-200';
-  //   }
-  // };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
@@ -161,8 +143,8 @@ export default function DoctorDashboard() {
                 <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center">
                   <User className="w-6 h-6 text-white" />
                 </div>
-                <div className="hidden sm:block">
-                  <h1 className="text-xl font-bold text-gray-900">{doctor?.name || 'Doctor'}</h1>
+                <div className="flex">
+                  <h1 className="text-xl font-bold text-gray-900">{doctor|| 'Doctor'}</h1>
                   {/* <p className="text-sm text-gray-500">Cardiologist</p> */}
                 </div>
               </div>
@@ -177,8 +159,8 @@ export default function DoctorDashboard() {
                 <Settings className="w-5 h-5" />
               </button>
               <button
-              onClick={logout} 
-              className="flex items-center space-x-2 text-red-600 hover:text-red-700 hover:bg-red-50 px-3 py-2 rounded-lg transition-colors">
+                onClick={logout}
+                className="flex items-center space-x-2 text-red-600 hover:text-red-700 hover:bg-red-50 px-3 py-2 rounded-lg transition-colors">
                 <LogOut className="w-4 h-4" />
                 <span className="hidden sm:inline">Logout</span>
               </button>
@@ -201,7 +183,7 @@ export default function DoctorDashboard() {
                   {filteredAppointments.length}
                 </span>
               </div>
-              
+
               {/* Search and Filter */}
               <div className="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-3">
                 <div className="relative">
@@ -220,8 +202,8 @@ export default function DoctorDashboard() {
                   className="px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
                   <option value="All">All Status</option>
-                  <option value="Pending">Pending</option>
-                  <option value="Accepted">Accepted</option>
+                  <option value="pending">Pending</option>
+                  <option value="confirmed">Accepted</option>
                 </select>
               </div>
             </div>
@@ -234,6 +216,8 @@ export default function DoctorDashboard() {
                 <tr>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Patient</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Time</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Concern</th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
                   <th className="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
@@ -259,20 +243,16 @@ export default function DoctorDashboard() {
                         {appt.time}
                       </div>
                     </td>
+                    <td className="px-6 py-4 text-sm text-gray-600">{appt.date}</td>
+                    <td className="px-6 py-4 text-sm text-gray-600">{appt.phone}</td>
                     <td className="px-6 py-4 text-sm text-gray-600 max-w-xs truncate">
                       {appt.symptoms}
                     </td>
-                    {/* <td className="px-6 py-4">
-                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${getPriorityColor(appt.priority)}`}>
-                        {appt.priority}
-                      </span>
-                    </td> */}
                     <td className="px-6 py-4">
-                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                        appt.status === 'Accepted' 
-                          ? 'bg-green-100 text-green-800' 
-                          : 'bg-yellow-100 text-yellow-800'
-                      }`}>
+                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${appt.status === 'Accepted'
+                        ? 'bg-green-100 text-green-800'
+                        : 'bg-yellow-100 text-yellow-800'
+                        }`}>
                         {appt.status}
                       </span>
                     </td>
@@ -281,17 +261,104 @@ export default function DoctorDashboard() {
                         <div className="flex items-center space-x-2">
                           <button
                             onClick={() => handleAccept(appt.id)}
-                            className="inline-flex items-center px-3 py-1.5 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700 transition-colors"
+                            disabled={loadingId === appt.id}
+                            className={`relative inline-flex items-center px-3 py-1.5 text-sm font-medium rounded-lg transition-all duration-300 ease-in-out transform
+                                  ${loadingId === appt.id
+                                ? 'bg-green-300 cursor-not-allowed scale-95 shadow-inner'
+                                : 'bg-green-600 hover:bg-green-700 hover:scale-105 hover:shadow-lg text-white active:scale-95'
+                              }
+                                `}
                           >
-                            <Check className="w-4 h-4 mr-1" />
-                            Accept
+                            {/* Loading overlay with pulse effect */}
+                            {loadingId === appt.id && (
+                              <div className="absolute inset-0 bg-green-400 rounded-lg animate-pulse opacity-50" />
+                            )}
+
+                            {/* Content container */}
+                            <div className={`relative flex items-center transition-all duration-300 ${loadingId === appt.id ? 'text-green-800' : 'text-white'}`}>
+                              {loadingId === appt.id ? (
+                                <>
+                                  {/* Enhanced spinner with multiple rings */}
+                                  <div className="relative mr-2 w-4 h-4">
+                                    {/* Outer ring */}
+                                    <div className="absolute inset-0 border-2 border-green-200 rounded-full animate-spin border-t-green-600" />
+                                    {/* Inner ring - counter rotation */}
+                                    <div className="absolute inset-1 border-2 border-transparent rounded-full animate-spin border-b-green-700"
+                                      style={{ animationDirection: 'reverse', animationDuration: '0.6s' }} />
+                                  </div>
+
+                                  {/* Animated dots */}
+                                  <span className="flex items-center">
+                                    Processing
+                                    <span className="ml-1 flex space-x-0.5">
+                                      <span className="w-1 h-1 bg-green-700 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                                      <span className="w-1 h-1 bg-green-700 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                                      <span className="w-1 h-1 bg-green-700 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                                    </span>
+                                  </span>
+                                </>
+                              ) : (
+                                <>
+                                  <Check className="w-4 h-4 mr-1 transition-transform duration-200 group-hover:scale-110" />
+                                  Accept
+                                </>
+                              )}
+                            </div>
+
+                            {/* Success ripple effect (optional - add when action completes) */}
+                            {/* You can trigger this with additional state when the action succeeds */}
+                            {/* <div className="absolute inset-0 bg-green-400 rounded-lg animate-ping opacity-75" /> */}
                           </button>
+
                           <button
                             onClick={() => handleReject(appt.id)}
-                            className="inline-flex items-center px-3 py-1.5 bg-red-600 text-white text-sm font-medium rounded-lg hover:bg-red-700 transition-colors"
+                            disabled={loadingId === appt.id}
+                            className={`relative inline-flex items-center px-3 py-1.5 text-sm font-medium rounded-lg transition-all duration-300 ease-in-out transform
+                                  ${loadingId === appt.id
+                                ? 'bg-red-300 cursor-not-allowed scale-95 shadow-inner'
+                                : 'bg-red-600 hover:bg-red-700 hover:scale-105 hover:shadow-lg text-white active:scale-95'
+                              }
+                                `}
                           >
-                            <X className="w-4 h-4 mr-1" />
-                            Reject
+                            {/* Loading overlay with pulse effect */}
+                            {loadingId === appt.id && (
+                              <div className="absolute inset-0 bg-red-400 rounded-lg animate-pulse opacity-50" />
+                            )}
+
+                            {/* Content container */}
+                            <div className={`relative flex items-center transition-all duration-300 ${loadingId === appt.id ? 'text-red-800' : 'text-white'}`}>
+                              {loadingId === appt.id ? (
+                                <>
+                                  {/* Enhanced spinner with multiple rings */}
+                                  <div className="relative mr-2 w-4 h-4">
+                                    {/* Outer ring */}
+                                    <div className="absolute inset-0 border-2 border-red-200 rounded-full animate-spin border-t-red-600" />
+                                    {/* Inner ring - counter rotation */}
+                                    <div className="absolute inset-1 border-2 border-transparent rounded-full animate-spin border-b-red-700"
+                                      style={{ animationDirection: 'reverse', animationDuration: '0.6s' }} />
+                                  </div>
+
+                                  {/* Animated dots */}
+                                  <span className="flex items-center">
+                                    Processing
+                                    <span className="ml-1 flex space-x-0.5">
+                                      <span className="w-1 h-1 bg-red-700 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                                      <span className="w-1 h-1 bg-red-700 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                                      <span className="w-1 h-1 bg-red-700 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                                    </span>
+                                  </span>
+                                </>
+                              ) : (
+                                <>
+                                  <X className="w-4 h-4 mr-1 transition-transform duration-200 group-hover:scale-110" />
+                                  Cancelled
+                                </>
+                              )}
+                            </div>
+
+                            {/* Success ripple effect (optional - add when action completes) */}
+                            {/* You can trigger this with additional state when the action succeeds */}
+                            {/* <div className="absolute inset-0 bg-green-400 rounded-lg animate-ping opacity-75" /> */}
                           </button>
                         </div>
                       ) : (
@@ -306,61 +373,126 @@ export default function DoctorDashboard() {
 
           {/* Mobile Card View */}
           <div className="lg:hidden">
-            <div className="divide-y divide-gray-200">
+            <div className="space-y-3">
               {filteredAppointments.map((appt) => (
-                <div key={appt.id} className="p-6 space-y-4">
-                  <div className="flex items-start justify-between">
+                <div key={appt.id} className="bg-white rounded-lg shadow-sm border border-gray-200 p-4">
+                  {/* Header */}
+                  <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center space-x-3">
-                      <div className="w-12 h-12 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center text-white font-medium">
+                      <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-medium text-sm">
                         {appt.patient.split(' ').map(n => n[0]).join('')}
                       </div>
                       <div>
-                        <h3 className="text-lg font-medium text-gray-900">{appt.patient}</h3>
-                        <p className="text-sm text-gray-500">Age: {appt.age}</p>
+                        <h3 className="font-medium text-gray-900">{appt.patient}</h3>
+                        <p className="text-xs text-gray-500">Age: {appt.age}</p>
                       </div>
                     </div>
-                    {/* <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border ${getPriorityColor(appt.priority)}`}>
-                      {appt.priority}
-                    </span> */}
-                  </div>
-                  
-                  <div className="grid grid-cols-2 gap-4 text-sm">
-                    <div className="flex items-center text-gray-600">
-                      <Clock className="w-4 h-4 mr-2" />
-                      {appt.time}
-                    </div>
-                    <div className="flex items-center">
-                      <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${
-                        appt.status === 'Accepted' 
-                          ? 'bg-green-100 text-green-800' 
-                          : 'bg-yellow-100 text-yellow-800'
+                    <span className={`px-2 py-1 rounded text-xs font-medium ${appt.status === 'confirmed'
+                      ? 'bg-green-100 text-green-700'
+                      : appt.status === 'cancelled'
+                        ? 'bg-red-100 text-red-700'
+                        : 'bg-yellow-100 text-yellow-700'
                       }`}>
-                        {appt.status}
-                      </span>
+                      {appt.status.charAt(0).toUpperCase() + appt.status.slice(1)}
+                    </span>
+                  </div>
+
+                  {/* Info Grid */}
+                  <div className="grid grid-cols-2 gap-3 mb-3 text-sm">
+                    <div>
+                      <span className="text-gray-500">Date:</span>
+                      <p className="font-medium">{appt.date}</p>
+                    </div>
+                    <div>
+                      <span className="text-gray-500">Time:</span>
+                      <p className="font-medium">{appt.time}</p>
                     </div>
                   </div>
-                  
-                  <div>
-                    <p className="text-sm text-gray-600">
-                      <span className="font-medium">Symptoms:</span> {appt.symptoms}
-                    </p>
+
+                  {/* Contact */}
+                  <div className="mb-3 text-sm">
+                    <span className="text-gray-500">Contact:</span>
+                    <p className="font-medium">{appt.phone}</p>
                   </div>
-                  
-                  {appt.status === 'Pending' && (
-                    <div className="flex space-x-3 pt-2">
+
+                  {/* Symptoms */}
+                  <div className="mb-4 p-3 bg-gray-50 rounded text-sm">
+                    <span className="text-gray-600 font-medium">Concern:  {appt.symptoms}</span>
+                  </div>
+
+                  {/* Actions */}
+                  {appt.status === 'pending' && (
+                    <div className="flex space-x-2">
                       <button
                         onClick={() => handleAccept(appt.id)}
-                        className="flex-1 inline-flex items-center justify-center px-4 py-2 bg-green-600 text-white text-sm font-medium rounded-lg hover:bg-green-700 transition-colors"
+                        disabled={loadingId === appt.id}
+                        className={`flex-1 inline-flex items-center justify-center px-3 py-2 text-sm font-medium rounded transition-colors ${loadingId === appt.id
+                          ? 'bg-green-200 text-green-700 cursor-not-allowed'
+                          : 'bg-green-600 text-white hover:bg-green-700'
+                          }`}
                       >
-                        <Check className="w-4 h-4 mr-2" />
-                        Accept
+                        {loadingId === appt.id ? (
+                          <>
+                            <div className="w-4 h-4 border-2 border-green-700 border-t-transparent rounded-full animate-spin mr-2" />
+                            Processing...
+                          </>
+                        ) : (
+                          <>
+                            <Check className="w-4 h-4 mr-1" />
+                            Accept
+                          </>
+                        )}
                       </button>
+
                       <button
                         onClick={() => handleReject(appt.id)}
-                        className="flex-1 inline-flex items-center justify-center px-4 py-2 bg-red-600 text-white text-sm font-medium rounded-lg hover:bg-red-700 transition-colors"
+                        disabled={loadingId === appt.id}
+                        className={`relative inline-flex items-center px-3 py-1.5 text-sm font-medium rounded-lg transition-all duration-300 ease-in-out transform
+                                  ${loadingId === appt.id
+                            ? 'bg-red-300 cursor-not-allowed scale-95 shadow-inner'
+                            : 'bg-red-600 hover:bg-red-700 hover:scale-105 hover:shadow-lg text-white active:scale-95'
+                          }
+                                `}
                       >
-                        <X className="w-4 h-4 mr-2" />
-                        Reject
+                        {/* Loading overlay with pulse effect */}
+                        {loadingId === appt.id && (
+                          <div className="absolute inset-0 bg-red-400 rounded-lg animate-pulse opacity-50" />
+                        )}
+
+                        {/* Content container */}
+                        <div className={`relative flex items-center transition-all duration-300 ${loadingId === appt.id ? 'text-red-800' : 'text-white'}`}>
+                          {loadingId === appt.id ? (
+                            <>
+                              {/* Enhanced spinner with multiple rings */}
+                              <div className="relative mr-2 w-4 h-4">
+                                {/* Outer ring */}
+                                <div className="absolute inset-0 border-2 border-red-200 rounded-full animate-spin border-t-red-600" />
+                                {/* Inner ring - counter rotation */}
+                                <div className="absolute inset-1 border-2 border-transparent rounded-full animate-spin border-b-red-700"
+                                  style={{ animationDirection: 'reverse', animationDuration: '0.6s' }} />
+                              </div>
+
+                              {/* Animated dots */}
+                              <span className="flex items-center">
+                                Processing
+                                <span className="ml-1 flex space-x-0.5">
+                                  <span className="w-1 h-1 bg-red-700 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
+                                  <span className="w-1 h-1 bg-red-700 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
+                                  <span className="w-1 h-1 bg-red-700 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
+                                </span>
+                              </span>
+                            </>
+                          ) : (
+                            <>
+                              <X className="w-4 h-4 mr-1 transition-transform duration-200 group-hover:scale-110" />
+                              Cancelled
+                            </>
+                          )}
+                        </div>
+
+                        {/* Success ripple effect (optional - add when action completes) */}
+                        {/* You can trigger this with additional state when the action succeeds */}
+                        {/* <div className="absolute inset-0 bg-green-400 rounded-lg animate-ping opacity-75" /> */}
                       </button>
                     </div>
                   )}
@@ -368,7 +500,6 @@ export default function DoctorDashboard() {
               ))}
             </div>
           </div>
-
           {/* Empty state */}
           {filteredAppointments.length === 0 && (
             <div className="text-center py-12">

@@ -96,7 +96,7 @@ export default function DoctorsPage() {
                 : 'https://swasthhyam-backend.onrender.com/api/doctors/add';
 
             const method = editingDoctor ? 'PUT' : 'POST';
-            console.log(formData);
+            // console.log(formData);
             const res = await fetch(url, {
                 method,
                 headers: {
@@ -123,7 +123,7 @@ export default function DoctorsPage() {
             setEditingDoctor(null);
 
         } catch (error) {
-            console.error('Error saving doctor:', error);
+            // console.error('Error saving doctor:', error);
             alert('An error occurred. Check the console for details.');
         }
     };
@@ -146,7 +146,7 @@ export default function DoctorsPage() {
                 // console.log(data)
                 setDoctors(data);
             } catch (err) {
-                console.error('Error fetching doctors:', err.message);
+                // console.error('Error fetching doctors:', err.message);
             }
         };
 
@@ -237,6 +237,7 @@ export default function DoctorsPage() {
 
                         {/* Filter Button */}
                         <button
+                        aria-label="Filter Doctor"
                             onClick={() => setShowFilters(!showFilters)}
                             className="flex items-center gap-2 px-6 py-4 bg-white/80 backdrop-blur-sm border border-white/50 rounded-2xl hover:bg-white hover:shadow-md transition-all duration-200 text-slate-700 font-medium"
                         >
@@ -247,6 +248,7 @@ export default function DoctorsPage() {
 
                     {/* Add Doctor Button */}
                     <button
+                        aria-label="Add New Doctor"
                         onClick={handleAddDoctor}
                         className="flex items-center gap-3 bg-gradient-to-r from-blue-600 via-purple-600 to-blue-700 text-white px-8 py-4 rounded-2xl hover:shadow-xl hover:shadow-blue-500/25 hover:scale-105 transition-all duration-300 font-semibold group"
                     >
@@ -410,6 +412,7 @@ export default function DoctorsPage() {
                                 {/* Action Buttons */}
                                 <div className="flex gap-3 pt-2">
                                     <button
+                                    aria-label="Edit"
                                         onClick={() => handleEditDoctor(doctor)}
                                         className="flex-1 flex items-center justify-center gap-2 bg-gradient-to-r from-blue-500 to-blue-600 text-white px-4 py-3 rounded-xl hover:shadow-lg hover:shadow-blue-500/25 hover:scale-105 transition-all duration-200 font-medium"
                                     >
@@ -417,6 +420,7 @@ export default function DoctorsPage() {
                                         Edit
                                     </button>
                                     <button
+                                    aria-label="Delete"
                                         onClick={() => handleDeleteDoctor(doctor.id)}
                                         className="flex-1 flex items-center justify-center gap-2 bg-gradient-to-r from-red-500 to-red-600 text-white px-4 py-3 rounded-xl hover:shadow-lg hover:shadow-red-500/25 hover:scale-105 transition-all duration-200 font-medium"
                                     >
@@ -438,6 +442,7 @@ export default function DoctorsPage() {
                         <h3 className="text-xl font-semibold text-slate-700 mb-2">No doctors found</h3>
                         <p className="text-slate-500 mb-6">Try adjusting your search criteria or add a new doctor.</p>
                         <button
+                            aria-label="Add Doctor"
                             onClick={handleAddDoctor}
                             className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-3 rounded-xl hover:shadow-lg transition-all duration-200"
                         >
@@ -462,6 +467,7 @@ export default function DoctorsPage() {
                                     </p>
                                 </div>
                                 <button
+                                aria-label="Close"
                                     onClick={() => setShowAddForm(false)}
                                     className="p-3 hover:bg-slate-100 rounded-2xl transition-colors"
                                 >
@@ -563,6 +569,7 @@ export default function DoctorsPage() {
                                                 />
                                                 {formData.specialties.length > 1 && (
                                                     <button
+                                                    aria-label="Close"
                                                         type="button"
                                                         onClick={() => removeSpecialty(index)}
                                                         className="px-4 py-3 text-red-500 hover:bg-red-50 rounded-xl transition-colors"
@@ -573,6 +580,7 @@ export default function DoctorsPage() {
                                             </div>
                                         ))}
                                         <button
+                                        aria-label="Add Specialty"
                                             type="button"
                                             onClick={addSpecialty}
                                             className="flex items-center gap-2 px-4 py-2 text-blue-600 hover:bg-blue-50 rounded-xl transition-colors font-medium"
@@ -748,6 +756,7 @@ export default function DoctorsPage() {
                                 {/* Form Actions */}
                                 <div className="flex gap-4 pt-6 border-t border-slate-200">
                                     <button
+                                    aria-label="Cancel"
                                         type="button"
                                         onClick={() => setShowAddForm(false)}
                                         className="flex-1 px-8 py-4 border-2 border-slate-200 text-slate-600 rounded-xl hover:bg-slate-50 hover:border-slate-300 transition-all duration-200 font-semibold"

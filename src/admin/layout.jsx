@@ -76,6 +76,7 @@ export default function AdminPanelLayout({ children }) {
               <h2 className="text-xl font-bold text-slate-800">Admin Panel</h2>
             </div>
             <button
+              aria-label="Close the open form"
               onClick={() => setSidebarOpen(false)}
               className="lg:hidden p-2 rounded-md hover:bg-slate-100"
             >
@@ -87,6 +88,7 @@ export default function AdminPanelLayout({ children }) {
           <nav className="flex-1 px-4 py-6 space-y-2">
             {navItems.map((item) => (
               <button
+              aria-label="Select the Components"
                 key={item.name}
                 onClick={() => handleNavClick(item.name)}
                 className={`
@@ -121,6 +123,7 @@ export default function AdminPanelLayout({ children }) {
               </div>
             </div>
             <button
+              aria-label="Logout from Admin Panel"
               onClick={logout}
               className="w-full flex items-center gap-3 px-4 py-3 text-slate-600 hover:bg-red-50 hover:text-red-600 rounded-xl transition-all duration-200">
               <LogOut className="w-4 h-4" />
@@ -137,6 +140,7 @@ export default function AdminPanelLayout({ children }) {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-4">
               <button
+                aria-label="View more options"
                 onClick={() => setSidebarOpen(true)}
                 className="lg:hidden p-2 rounded-md hover:bg-slate-100"
               >

@@ -46,7 +46,7 @@ export default function PatientFeedbackForm() {
         setSubmitted(false);
       }, 3000);
     } catch (error) {
-      console.error("Feedback submission error:", error.message);
+      // // console.error("Feedback submission error:", error.message);
       alert("Submission failed: " + error.message);
     }
   };
@@ -205,6 +205,7 @@ export default function PatientFeedbackForm() {
 
             {/* Submit Button */}
             <button
+              aria-label="Submit the feedback form"
               type="button"
               onClick={handleSubmit}
               className="w-full bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white font-bold py-4 px-8 rounded-xl hover:from-blue-700 hover:via-purple-700 hover:to-pink-700 shadow-2xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl text-lg flex items-center justify-center space-x-2"

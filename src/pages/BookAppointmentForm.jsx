@@ -52,7 +52,7 @@ const BookAppointmentForm = () => {
 
 
     try {
-      console.log(formData)
+      // console.log(formData)
       const response = await fetch('https://swasthhyam-backend.onrender.com/api/appointments/', {
         method: 'POST',
         headers: {
@@ -68,11 +68,11 @@ const BookAppointmentForm = () => {
         // TODO: Save token / navigate to dashboard
         alert('Appointment booked successfully!');
       } else {
-        console.error('Login failed:', data.message);
+        // // console.error('Login failed:', data.message);
         alert(data.message || 'Login failed');
       }
     } catch (error) {
-      console.log('Error during login:', error);
+      // console.log('Error during login:', error);
       alert('Something went wrong. Please try again.');
     }
 
@@ -335,6 +335,7 @@ const BookAppointmentForm = () => {
           {/* Submit Button */}
           <div className="mt-8 text-center">
             <button
+             aria-label="Confirm appointment booking"
               onClick={handleSubmit}
               disabled={isSubmitting}
               className={`group relative px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none ${isSubmitting ? 'animate-pulse' : ''
