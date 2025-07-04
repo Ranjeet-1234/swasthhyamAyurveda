@@ -36,7 +36,7 @@ export default function Footer() {
                   <Heart className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="text-3xl font-bold bg-gradient-to-r from-emerald-300 to-teal-300 bg-clip-text text-transparent">
-                  Swasthhyam
+                  AsthyaaAyu 
                 </h3>
               </div>
               <p className="text-gray-300 text-sm mb-6 leading-relaxed">
@@ -100,7 +100,7 @@ export default function Footer() {
                   </div>
                   <div>
                     <p className="text-sm text-gray-400">Email Us</p>
-                    <p className="text-white font-medium">swasthhyamayurveda@gmail.com</p>
+                    <p className="text-white font-medium">asthyaaayu@gmail.com</p>
                   </div>
                 </div>
 

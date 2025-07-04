@@ -51,11 +51,11 @@ const HeaderBanner = ({ openform }) => {
           <div className="max-w-7xl mx-auto flex items-center justify-between">
             {/* Logo */}
             <div className="flex items-center space-x-1">
-              <div className="w-20 h-20  rounded-full flex items-center justify-center overflow-hidden">
+              <div className="w-20 h-30  rounded-full flex items-center justify-center overflow-hidden">
                 <img src={logo} loading="lazy" alt="logo" className="w-full h-full object-contain" />
               </div>
               <span className="text-2xl lg:text-3xl font-bold bg-gradient-to-r from-white to-green-200 bg-clip-text text-transparent">
-                Swasthhyam
+                AsthyaaAyu
               </span>
             </div>
 

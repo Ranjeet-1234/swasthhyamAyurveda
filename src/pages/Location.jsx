@@ -138,14 +138,14 @@ export default function HospitalLocation({ openform }) {
               </div>
               <div className="rounded-2xl overflow-hidden shadow-inner border-4 border-white h-80 lg:h-96">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d626.8524892764929!2d73.92869027056258!3d18.502759892952902!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2c1e5e97f506f%3A0xc6e423e94cdaf85b!2sSwasthhyam%20Knee%20%26%20Spine%20Specialist!5e0!3m2!1sen!2sin!4v1749201450969!5m2!1sen!2sin"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.582021316625!2d73.92628997598518!3d18.5025827697219!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2c168c2510771%3A0x66db909abb277b9a!2sASTHYAAAYU!5e0!3m2!1sen!2sin!4v1751612174011!5m2!1sen!2sin"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
                   allowFullScreen=""
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Swasthya Ayurveda Clinic Location"
+                  title="Asthyaaayu Ayurveda Clinic Location"
                   className="grayscale-0 hover:grayscale-0 transition-all duration-300">
                 </iframe>
               </div>

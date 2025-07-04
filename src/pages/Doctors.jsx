@@ -182,7 +182,7 @@ const Doctors = ({ openform }) => {
             {mainDoctors.map((doc, index) => (
               <div
                 key={doc._id}
-                className={`flex flex-col ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} md:items-center md:justify-between bg-white/80 backdrop-blur-sm shadow-xl rounded-3xl overflow-hidden border border-white/50 hover:shadow-2xl transition-all duration-500 hover:scale-[1.02]`}
+                className={`flex flex-col ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} md:items-center md:justify-between bg-white/80  shadow-xl rounded-3xl overflow-hidden border border-white/50 hover:shadow-2xl transition-all duration-500 hover:scale-[1.02]`}
               >
                 {/* Info Section */}
                 <div className="w-full md:w-1/2 p-8 sm:p-12">
@@ -340,7 +340,7 @@ const Doctors = ({ openform }) => {
 
         {/* Carousel Section */}
         {carouselDoctors.length > 0 && (
-          <div className="bg-white/60 backdrop-blur-sm rounded-3xl p-8 md:p-12 border border-white/50 shadow-xl">
+          <div className="bg-white/60 rounded-3xl p-8 md:p-12 border border-white/50 shadow-xl">
             <div className="text-center mb-12">
               <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">More Expert Practitioners</h3>
               <p className="text-gray-600 text-lg">Discover our complete team of Ayurvedic specialists</p>

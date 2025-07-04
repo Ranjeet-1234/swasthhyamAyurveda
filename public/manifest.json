@@ -1,14 +1,14 @@
 {
-  "short_name": "DoctorDesk",
-  "name": "Doctor Dashboard - Ayurvedic App",
+  "short_name": "Asthyaayu",
+  "name": "Asthyaayu",
   "icons": [
     {
-      "src": "logo2.png",
+      "src": "newLogo.webp",
       "type": "image/png",
       "sizes": "192x192"
     },
     {
-      "src": "logo2.png",
+      "src": "newLogo.webp",
       "type": "image/png",
       "sizes": "512x512"
     }
