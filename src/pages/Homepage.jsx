@@ -104,7 +104,7 @@ const Home = () => {
       id: 'chat',
       label: 'WhatsApp',
       icon: MessagesSquare,
-      href: 'https://wa.me/9529396371',
+      href: 'https://wa.me/9146957655',
       gradient: 'from-green-500 to-green-600'
     },
     {
@@ -117,7 +117,7 @@ const Home = () => {
       id: 'call',
       label: 'Call',
       icon: PhoneCall,
-      href: 'tel:+911234567890',
+      href: 'tel:+919146957655',
       gradient: 'from-orange-500 to-orange-600'
     }
   ], []);

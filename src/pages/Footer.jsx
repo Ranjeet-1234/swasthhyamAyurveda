@@ -36,7 +36,7 @@ export default function Footer() {
                   <Heart className="w-6 h-6 text-white" />
                 </div>
                 <h3 className="text-3xl font-bold bg-gradient-to-r from-emerald-300 to-teal-300 bg-clip-text text-transparent">
-                  AsthyaaAyu 
+                  Swasthhyam 
                 </h3>
               </div>
               <p className="text-gray-300 text-sm mb-6 leading-relaxed">
@@ -90,7 +90,7 @@ export default function Footer() {
                   </div>
                   <div>
                     <p className="text-sm text-gray-400">Call Us</p>
-                    <p className="text-white font-medium">+91 9529396371</p>
+                    <p className="text-white font-medium">+91 91469 57655</p>
                   </div>
                 </div>
 
@@ -100,7 +100,7 @@ export default function Footer() {
                   </div>
                   <div>
                     <p className="text-sm text-gray-400">Email Us</p>
-                    <p className="text-white font-medium">asthyaaayu@gmail.com</p>
+                    <p className="text-white font-medium">swasthhyamayurveda@gmail.com</p>
                   </div>
                 </div>
 
@@ -131,9 +131,9 @@ export default function Footer() {
                 <p className="text-sm text-gray-400 mb-3">Follow Us</p>
                 <div className="flex gap-3">
                   {[
-                    { icon: Facebook, bg: 'bg-blue-600', hover: 'hover:bg-blue-500', label: 'Facebook', url: 'https://www.facebook.com/profile.php?id=61574797145128&mibextid=ZbWKwL' },
+                    { icon: Facebook, bg: 'bg-blue-600', hover: 'hover:bg-blue-500', label: 'Facebook', url: 'https://www.facebook.com/profile.php?id=61576353255566' },
                     { icon: Instagram, bg: 'bg-pink-600', hover: 'hover:bg-pink-500', label: 'Instagram', url: 'https://www.instagram.com/accounts/login/?next=%2Fswasthhyam_knee_spine_expert%2F&source=omni_redirect' },
-                    { icon: Youtube, bg: 'bg-red-700', hover: 'hover:bg-red-600', label: 'YouTube', url: 'https://www.youtube.com/@SwasthhyamAyurveda' }
+                    { icon: Youtube, bg: 'bg-red-700', hover: 'hover:bg-red-600', label: 'YouTube', url: 'https://www.youtube.com/@SwasthhyamKSRTspecialist' }
                   ].map(({ icon: Icon, bg, hover, label, url }, i) => (
                     <a
                       key={i}

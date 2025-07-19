@@ -188,16 +188,16 @@ const Doctors = ({ openform }) => {
                 <div className="w-full md:w-1/2 p-8 sm:p-12">
                   <div className="max-w-xl">
                     {isMobile && (
-                      <div className="w-full flex justify-center items-center mb-6">
-                        <div className="relative group">
-                          <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden shadow-xl ring-4 ring-white">
+                      <div className="w-full md:w-1/2 flex justify-center pb-5">
+                        <div className="relative">
+                          <div className="w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden shadow-xl">
                             <img
-                              src={doc.image}
                               loading='lazy'
+                              src={doc.image}
                               alt={doc.name}
                               className="w-full h-full object-cover"
                               onError={(e) => {
-                                e.target.src = 'https://via.placeholder.com/150x150?text=Doctor';
+                                e.target.src = 'https://via.placeholder.com/200x200?text=Doctor';
                               }}
                             />
                           </div>
@@ -229,7 +229,7 @@ const Doctors = ({ openform }) => {
                     <p className="text-gray-700 mb-6 leading-relaxed text-lg">{doc.bio}</p>
 
                     {/* Quote - only show on desktop */}
-                    {!isMobile && doc.quote && (
+                    {doc.quote && (
                       <div className="bg-gradient-to-r from-emerald-50 to-green-50 p-4 rounded-2xl mb-6 border-l-4 border-emerald-500">
                         <p className="italic text-gray-700 text-sm leading-relaxed">"{doc.quote}"</p>
                       </div>
@@ -361,10 +361,25 @@ const Doctors = ({ openform }) => {
                     <div className="flex flex-col md:flex-row items-center justify-between bg-gradient-to-r from-white to-emerald-50 p-8 md:p-12 rounded-2xl">
                       <div className="w-full md:w-1/2 mb-8 md:mb-0 md:pr-8">
                         <h4 className="text-2xl font-bold text-gray-900 mb-2">{doc.name}</h4>
-                        <p className="text-emerald-600 font-semibold mb-4">{doc.title}</p>
+                        <div className="flex items-center justify-between mb-4">
+                          <p className="text-emerald-600 font-semibold text-base md:text-lg">{doc.title}</p>
+                          {isMobile && (
+                            <div className="flex gap-3">
+                              <a href={doc.socials?.facebook || '#'} className="text-emerald-600 hover:text-emerald-800">
+                                <FaFacebookF className="w-5 h-5" />
+                              </a>
+                              <a href={doc.socials?.linkedin || '#'} className="text-emerald-600 hover:text-emerald-800">
+                                <FaLinkedinIn className="w-5 h-5" />
+                              </a>
+                              <a href={doc.socials?.instagram || '#'} className="text-emerald-600 hover:text-emerald-800">
+                                <FaInstagram className="w-5 h-5" />
+                              </a>
+                            </div>
+                          )}
+                        </div>
                         <p className="text-gray-700 mb-4 leading-relaxed">{doc.bio}</p>
 
-                        {doc.quote && (
+                        {!isMobile && doc.quote && (
                           <div className="bg-emerald-50 p-4 rounded-xl mb-6 border-l-4 border-emerald-400">
                             <p className="italic text-gray-700 text-sm">"{doc.quote}"</p>
                           </div>
@@ -382,7 +397,7 @@ const Doctors = ({ openform }) => {
                           <div>
                             <div className="flex items-center justify-center gap-1">
                               <FaStar className="text-yellow-400 w-4 h-4" />
-                              <span className="font-bold text-gray-900">{doc.rating || '4.9'}</span>
+                              <span className="font-bold text-gray-900">{doc.rating || '4.8'}</span>
                             </div>
                             <div className="text-xs text-gray-600 uppercase">Rating</div>
                           </div>

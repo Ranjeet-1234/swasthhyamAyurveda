@@ -8,7 +8,7 @@ export default function HospitalLocation({ openform }) {
         const { latitude, longitude } = position.coords;
 
         // Replace with your clinic's coordinates or address
-        const destination = "Swasthhyam Knee & Spine Specialist+pune";
+        const destination = "Swasthhyam Avurvedic +pune";
 
         const mapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${latitude},${longitude}&destination=${destination}&travelmode=driving`;
 
@@ -101,7 +101,7 @@ export default function HospitalLocation({ openform }) {
                       </div>
                       <div>
                         <p className="font-semibold text-gray-800">Call Us</p>
-                        <p className="text-blue-600 font-medium">+91 9529396371</p>
+                        <p className="text-blue-600 font-medium">+91 9146957655</p>
                       </div>
                     </div>
 
@@ -138,14 +138,14 @@ export default function HospitalLocation({ openform }) {
               </div>
               <div className="rounded-2xl overflow-hidden shadow-inner border-4 border-white h-80 lg:h-96">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.582021316625!2d73.92628997598518!3d18.5025827697219!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2c168c2510771%3A0x66db909abb277b9a!2sASTHYAAAYU!5e0!3m2!1sen!2sin!4v1751612174011!5m2!1sen!2sin"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.5818533669694!2d73.92626567585937!3d18.502590369721915!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2c12659bacd27%3A0x35a0f6df1a17e7db!2sSwasthhyam%20Ayurveda%20Private%20LTD!5e0!3m2!1sen!2sin!4v1752947642388!5m2!1sen!2sin"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
                   allowFullScreen=""
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  title="Asthyaaayu Ayurveda Clinic Location"
+                  title="Swasthhyam Ayurveda Clinic Location"
                   className="grayscale-0 hover:grayscale-0 transition-all duration-300">
                 </iframe>
               </div>
@@ -158,7 +158,7 @@ export default function HospitalLocation({ openform }) {
                   <MapPin className="w-4 h-4" />
                   Get Directions
                 </button>
-                <a href="tel:9529396371" className='w-full'>
+                <a href="tel:9146957655" className='w-full'>
                   <button aria-label="Call Now " className="w-full h-full flex items-center justify-center gap-2 py-3 px-4 bg-green-50 hover:bg-green-100 text-green-700 rounded-xl transition-colors duration-200 font-medium">
                     <Phone className="w-4 h-4" />
                     Call Now

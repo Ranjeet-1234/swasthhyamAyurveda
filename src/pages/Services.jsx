@@ -256,7 +256,7 @@ const Services = ({ openform }) => {
                                 className="bg-white text-emerald-600 hover:bg-emerald-50 px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 shadow">
                                 Book Consultation
                             </button>
-                            <a href="tel:+919529396371" className="bg-emerald-700 hover:bg-emerald-800 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 border-2 border-emerald-500 text-center">
+                            <a href="tel:+919146957655" className="bg-emerald-700 hover:bg-emerald-800 text-white px-6 sm:px-8 py-3 sm:py-4 rounded-full font-semibold transition-all duration-300 hover:scale-105 border-2 border-emerald-500 text-center">
                                 Call Us Now
                             </a>
 

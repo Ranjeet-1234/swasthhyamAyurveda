@@ -55,7 +55,7 @@ const HeaderBanner = ({ openform }) => {
                 <img src={logo} loading="lazy" alt="logo" className="w-full h-full object-contain" />
               </div>
               <span className="text-2xl lg:text-3xl font-bold bg-gradient-to-r from-white to-green-200 bg-clip-text text-transparent">
-                AsthyaaAyu
+                Swasthhyam
               </span>
             </div>
 
