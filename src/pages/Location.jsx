@@ -8,7 +8,7 @@ export default function HospitalLocation({ openform }) {
         const { latitude, longitude } = position.coords;
 
         // Replace with your clinic's coordinates or address
-        const destination = "Swasthhyam Avurvedic +pune";
+        const destination = "Swasthhyam Ayurvedic +pune";
 
         const mapsUrl = `https://www.google.com/maps/dir/?api=1&origin=${latitude},${longitude}&destination=${destination}&travelmode=driving`;
 
@@ -56,7 +56,7 @@ export default function HospitalLocation({ openform }) {
                   <Hospital className="w-8 h-8 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold text-gray-800">Swasthya Ayurveda Clinic</h3>
+                  <h3 className="text-2xl font-bold text-gray-800">Swasthhyam Ayurvedic Hospital</h3>
                   {/* <div className="flex items-center gap-1 mt-1">
                     {[...Array(5)].map((_, i) => (
                       <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
@@ -111,7 +111,7 @@ export default function HospitalLocation({ openform }) {
                       </div>
                       <div>
                         <p className="font-semibold text-gray-800">Hours</p>
-                        <p className="text-gray-600">Mon - Sat: 9 AM – 7 PM</p>
+                        <p className="text-gray-600">Mon - Sun: 10 AM – 7 PM</p>
                       </div>
                     </div>
                   </div>
@@ -138,7 +138,7 @@ export default function HospitalLocation({ openform }) {
               </div>
               <div className="rounded-2xl overflow-hidden shadow-inner border-4 border-white h-80 lg:h-96">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3783.5818533669694!2d73.92626567585937!3d18.502590369721915!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2c12659bacd27%3A0x35a0f6df1a17e7db!2sSwasthhyam%20Ayurveda%20Private%20LTD!5e0!3m2!1sen!2sin!4v1752947642388!5m2!1sen!2sin"
+                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d871.180369459314!2d73.92887817477174!3d18.5024288143988!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2c12659bacd27%3A0x35a0f6df1a17e7db!2sSwasthhyam%20Ayurveda%20Private%20LTD!5e0!3m2!1sen!2sin!4v1753184623440!5m2!1sen!2sin"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
@@ -146,8 +146,9 @@ export default function HospitalLocation({ openform }) {
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
                   title="Swasthhyam Ayurveda Clinic Location"
-                  className="grayscale-0 hover:grayscale-0 transition-all duration-300">
-                </iframe>
+                  className="grayscale-0 hover:grayscale-0 transition-all duration-300"
+                />
+
               </div>
 
               <div className="mt-6 grid grid-cols-2 gap-3">
