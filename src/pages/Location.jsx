@@ -56,7 +56,8 @@ export default function HospitalLocation({ openform }) {
                   <Hospital className="w-8 h-8 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-2xl font-bold text-gray-800">Swasthhyam Ayurvedic Hospital</h3>
+                  <h3 className="text-2xl font-bold text-gray-800">Asthyaaayu </h3>
+                  <h3 className="text-1xl font-bold text-gray-800">Swasthhyam Ayurvedic Pvt Ltd</h3>
                   {/* <div className="flex items-center gap-1 mt-1">
                     {[...Array(5)].map((_, i) => (
                       <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />

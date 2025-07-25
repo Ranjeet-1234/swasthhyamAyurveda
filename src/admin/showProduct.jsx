@@ -67,9 +67,16 @@ export default function FeatureProductTable() {
     const handleDelete = async (id) => {
         const confirmed = window.confirm('Are you sure you want to delete this product?');
         if (!confirmed) return;
+        const token = localStorage.getItem('token');
 
-        const res = await fetch(`https://swasthhyam-backend.onrender.com/api/products/${id}`, { method: 'DELETE' });
-
+        const res = await fetch(`https://swasthhyam-backend.onrender.com/api/products/${id}`, { 
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            },
+        });
+        // const res = await fetch(`http://localhost:5000/api/products/${id}`, { method: 'DELETE' });
         if (res.ok) {
             setProducts(products.filter(p => p._id !== id));
         } else {

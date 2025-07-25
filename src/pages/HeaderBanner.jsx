@@ -50,14 +50,20 @@ const HeaderBanner = ({ openform }) => {
         <nav className="w-full px-4 sm:px-6 lg:px-8 py-4 lg:py-6">
           <div className="max-w-7xl mx-auto flex items-center justify-between">
             {/* Logo */}
-            <div className="flex items-center space-x-1">
-              <div className="w-20 h-30  rounded-full flex items-center justify-center overflow-hidden">
+            <div className="flex items-center space-x-2">
+              <div className="w-20 h-20 rounded-full flex items-center justify-center overflow-hidden">
                 <img src={logo} loading="lazy" alt="logo" className="w-full h-full object-contain" />
               </div>
-              <span className="text-2xl lg:text-3xl font-bold bg-gradient-to-r from-white to-green-200 bg-clip-text text-transparent">
-                Swasthhyam
-              </span>
+              <div className="flex flex-col leading-tight">
+                <span className="text-2xl lg:text-3xl font-bold text-white">
+                  Asthyaaayu
+                </span>
+                <span className="text-sm lg:text-base text-green-100">
+                  Swasthyam Ayurveda Pvt. Ltd.
+                </span>
+              </div>
             </div>
+
 
 
             {/* Desktop Navigation */}

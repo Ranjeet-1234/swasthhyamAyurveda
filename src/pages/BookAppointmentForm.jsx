@@ -2,21 +2,23 @@ import React, { useState } from "react";
 import { Calendar, Clock, User, Mail, Phone, MapPin, Stethoscope, Heart } from "lucide-react";
 
 const services = [
-  { name: "Skin Care", icon: "✨", color: "from-pink-400 to-rose-500" },
-  { name: "Arthritis", icon: "🦴", color: "from-blue-400 to-indigo-500" },
-  { name: "Diabetes Management", icon: "🩺", color: "from-red-400 to-pink-500" },
-  { name: "Weight Loss", icon: "⚖️", color: "from-yellow-400 to-amber-500" },
-  { name: "Women's Health", icon: "👩‍⚕️", color: "from-rose-400 to-pink-500" },
-  { name: "Chronic Pain", icon: "💊", color: "from-teal-400 to-cyan-500" },
+  { name: "Allergic disorders"},
+  { name: "Diabetology"},
+  { name: "Cardiology" },
+  { name: "Joints disorders"},
+  { name: "weight management"},
+  { name: "Heart Disease"},
+  { name: "Gastrology"},
 ];
 
 const doctorAssignments = {
-  "Skin Care": "Dr. Meenakshi Chauhan",
-  "Arthritis": "Dr. Rohit Sharma",
-  "Diabetes Management": "Dr. Rohit Sharma",
-  "Weight Loss": "Dr. Meenakshi Chauhan",
-  "Women's Health": "Dr. Meenakshi Chauhan",
-  "Chronic Pain": "Dr. Rohit Sharma",
+  "Allergic disorders": "Dr. Shilpaja Wagh",
+  "Joints disorders": "Dr. Ghanshyam Rathod",
+  "Gastrology": "Dr. Pratiksha Sadanapurkar",
+  "weight management": "Dr. Pratiksha Sadanapurkar",
+  "Diabetology": "Dr. Pratiksha Sadanapurkar",
+  "Cardiology": "Dr. Pratik Deshmukh",
+  "Heart Disease": "Dr. Pratik Deshmukh",
 };
 
 
@@ -62,7 +64,7 @@ const BookAppointmentForm = () => {
       });
 
       const data = await response.json();
-
+      // console.log(data);
       if (response.ok) {
         // console.log('Login successful', data);
         // TODO: Save token / navigate to dashboard

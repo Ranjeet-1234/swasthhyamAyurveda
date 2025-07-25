@@ -35,10 +35,16 @@ export default function Footer() {
                 <div className="w-12 h-12 bg-gradient-to-br from-emerald-400 to-teal-400 rounded-full flex items-center justify-center">
                   <Heart className="w-6 h-6 text-white" />
                 </div>
-                <h3 className="text-3xl font-bold bg-gradient-to-r from-emerald-300 to-teal-300 bg-clip-text text-transparent">
-                  Swasthhyam 
-                </h3>
+                <div className="flex flex-col leading-tight">
+                  <h3 className="text-3xl font-bold bg-gradient-to-r from-emerald-300 to-teal-300 bg-clip-text text-transparent">
+                    Asthyaaayu
+                  </h3>
+                  <h3 className="text-l font-medium text-teal-100">
+                    Swasthyam Ayurveda Pvt Ltd
+                  </h3>
+                </div>
               </div>
+
               <p className="text-gray-300 text-sm mb-6 leading-relaxed">
                 Reviving ancient healing with modern care. Experience holistic wellness through trusted Ayurvedic practices that nurture mind, body, and spirit.
               </p>
@@ -121,7 +127,7 @@ export default function Footer() {
                   <div>
                     <p className="text-sm text-gray-400">Hours</p>
                     <p className="text-white font-medium">Mon–Sun: 10AM–7PM</p>
-                  
+
                   </div>
                 </div>
               </div>
