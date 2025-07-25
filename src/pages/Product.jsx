@@ -56,7 +56,7 @@ export default function FeaturedProducts() {
               className="bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition-all"
             >
 
-              <img src={product.img} loading='lazy' alt={product.name} className="w-full h-56 object-cover" />
+              <img src={product.img} loading='lazy' alt={product.name} className="w-full h-auto p-2" />
               <div className="p-4 text-center">
                 <h3 className="text-lg font-semibold text-emerald-800">{product.name}</h3>
               </div>
@@ -76,7 +76,7 @@ export default function FeaturedProducts() {
                 rel="noopener noreferrer"
                 className="min-w-[240px] bg-white rounded-2xl shadow-md overflow-hidden hover:shadow-lg transition-all"
               >
-                <img src={product.img} loading='lazy' alt={product.name} className="w-full h-48 object-cover" />
+                <img src={product.img} loading='lazy' alt={product.name} className="w-full h-60 p-4" />
                 <div className="p-3 text-center">
                   <h3 className="text-base font-semibold text-emerald-800">{product.name}</h3>
                 </div>
