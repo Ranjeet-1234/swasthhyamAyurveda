@@ -138,7 +138,7 @@ export default function Footer() {
                 <div className="flex gap-3">
                   {[
                     { icon: Facebook, bg: 'bg-blue-600', hover: 'hover:bg-blue-500', label: 'Facebook', url: 'https://www.facebook.com/profile.php?id=61576353255566' },
-                    { icon: Instagram, bg: 'bg-pink-600', hover: 'hover:bg-pink-500', label: 'Instagram', url: 'https://www.instagram.com/accounts/login/?next=%2Fswasthhyam_knee_spine_expert%2F&source=omni_redirect' },
+                    { icon: Instagram, bg: 'bg-pink-600', hover: 'hover:bg-pink-500', label: 'Instagram', url: 'https://www.instagram.com/swasthhyam_ayurveda_pvt_ltd/?utm_source=ig_web_button_share_sheet' },
                     { icon: Youtube, bg: 'bg-red-700', hover: 'hover:bg-red-600', label: 'YouTube', url: 'https://www.youtube.com/@SwasthhyamKSRTspecialist' }
                   ].map(({ icon: Icon, bg, hover, label, url }, i) => (
                     <a
