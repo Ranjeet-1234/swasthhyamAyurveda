@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Calendar, Clock, User, UserCheck, Activity, Search, ChevronDown } from 'lucide-react';
+import { Calendar, Clock, User, UserCheck, Activity, Search,Check, X, ChevronDown } from 'lucide-react';
 
 export default function AllAppointments() {
   const [appointments, setAppointments] = useState([]);
@@ -8,21 +8,24 @@ export default function AllAppointments() {
   const [statusFilter, setStatusFilter] = useState('all');
   const [dateFilter, setDateFilter] = useState('all');
   const [viewMode, setViewMode] = useState('table'); // 'table' or 'cards'
+  const [loadingId, setLoadingId] = useState(null);
+
 
   useEffect(() => {
     const fetchAppointments = async () => {
-        const token = localStorage.getItem('token');
+      const token = localStorage.getItem('token');
       try {
-        const res = await fetch('https://swasthhyam-backend.onrender.com/api/appointments',{
-            headers: {
-                'Authorization': `Bearer ${token}`
-            }
+        const res = await fetch('https://swasthhyam-backend.onrender.com/api/appointments', {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
         });
         if (!res.ok) {
           throw new Error(`HTTP error! status: ${res.status}`);
         }
         const data = await res.json();
         setAppointments(data);
+        console.log(data)
       } catch (err) {
         // console.error("Failed to fetch appointments", err);
         // You can add error state handling here if needed
@@ -33,6 +36,55 @@ export default function AllAppointments() {
     };
     fetchAppointments();
   }, []);
+
+  const handleReject = async (id) => {
+    setLoadingId(id); // Start loading
+    const token = localStorage.getItem('token');
+
+    try {
+      await fetch(`https://swasthhyam-backend.onrender.com/api/appointments/${id}/status`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ status: 'cancelled' })
+      });
+
+      setAppointments(prev =>
+        prev.map(appt => appt.id === id ? { ...appt, status: 'Cancelled' } : appt)
+      );
+      setLoadingId(null);
+    } catch (error) {
+      // console.error('Failed to reject:', error);
+    } 
+  };
+
+  const handleAccept = async (id) => {
+    const token = localStorage.getItem('token');
+    setLoadingId(id);
+    try {
+      await fetch(`https://swasthhyam-backend.onrender.com/api/appointments/${id}/status`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ status: 'confirmed' })
+      });
+
+      // const data = await res.json(); // await needed here
+      // console.log(data); // correctly log the response
+
+      setAppointments(prev =>
+        prev.map(appt => appt.id === id ? { ...appt, status: 'Accepted' } : appt)
+      );
+      setLoadingId(null);
+    } catch (error) {
+      // console.error('Failed to accept:', error);
+    }
+
+  };
 
   const getStatusColor = (status) => {
     switch (status?.toLowerCase()) {
@@ -57,7 +109,7 @@ export default function AllAppointments() {
   const getDateFilteredAppointments = (appointments, filter) => {
     const now = new Date();
     const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-    
+
     switch (filter) {
       case 'last10days':
         const tenDaysAgo = new Date(today);
@@ -66,7 +118,7 @@ export default function AllAppointments() {
           const appDate = new Date(app.date);
           return appDate >= tenDaysAgo && appDate <= now;
         });
-      
+
       case 'last30days':
         const thirtyDaysAgo = new Date(today);
         thirtyDaysAgo.setDate(today.getDate() - 30);
@@ -74,7 +126,7 @@ export default function AllAppointments() {
           const appDate = new Date(app.date);
           return appDate >= thirtyDaysAgo && appDate <= now;
         });
-      
+
       case 'last3months':
         const threeMonthsAgo = new Date(today);
         threeMonthsAgo.setMonth(today.getMonth() - 3);
@@ -82,7 +134,7 @@ export default function AllAppointments() {
           const appDate = new Date(app.date);
           return appDate >= threeMonthsAgo && appDate <= now;
         });
-      
+
       default: // 'all'
         return appointments;
     }
@@ -90,8 +142,8 @@ export default function AllAppointments() {
 
   const filteredAppointments = getDateFilteredAppointments(appointments, dateFilter).filter(app => {
     const matchesSearch = app.patientName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         app.doctor?.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         app.PatientService.toLowerCase().includes(searchTerm.toLowerCase());
+      app.doctor?.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      app.PatientService.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesStatus = statusFilter === 'all' || app.status === statusFilter;
     return matchesSearch && matchesStatus;
   });
@@ -119,11 +171,11 @@ export default function AllAppointments() {
             </div>
             <div className="flex items-center gap-2 text-sm text-gray-500">
               <Calendar className="w-4 h-4" />
-              <span>{new Date().toLocaleDateString('en-US', { 
-                weekday: 'long', 
-                year: 'numeric', 
-                month: 'long', 
-                day: 'numeric' 
+              <span>{new Date().toLocaleDateString('en-US', {
+                weekday: 'long',
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
               })}</span>
             </div>
           </div>
@@ -171,7 +223,7 @@ export default function AllAppointments() {
                 >
                   <option value="all">All Status</option>
                   <option value="confirmed">Confirmed</option>
-                  <option value="pending">Pending</option>
+                  <option defaultChecked value="pending">Pending</option>
                   <option value="completed">Completed</option>
                   <option value="cancelled">Cancelled</option>
                 </select>
@@ -183,22 +235,20 @@ export default function AllAppointments() {
                 <button
                   aria-label="View in Table"
                   onClick={() => setViewMode('table')}
-                  className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
-                    viewMode === 'table' 
-                      ? 'bg-white text-blue-600 shadow-sm' 
+                  className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 ${viewMode === 'table'
+                      ? 'bg-white text-blue-600 shadow-sm'
                       : 'text-gray-600 hover:text-gray-900'
-                  }`}
+                    }`}
                 >
                   Table
                 </button>
                 <button
                   aria-label="View in Cards"
                   onClick={() => setViewMode('cards')}
-                  className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 ${
-                    viewMode === 'cards' 
-                      ? 'bg-white text-blue-600 shadow-sm' 
+                  className={`px-4 py-2 rounded-md text-sm font-medium transition-all duration-200 ${viewMode === 'cards'
+                      ? 'bg-white text-blue-600 shadow-sm'
                       : 'text-gray-600 hover:text-gray-900'
-                  }`}
+                    }`}
                 >
                   Cards
                 </button>
@@ -210,29 +260,29 @@ export default function AllAppointments() {
         {/* Stats Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {[
-            { 
-              label: 'Total', 
-              count: getDateFilteredAppointments(appointments, dateFilter).length, 
-              color: 'blue', 
-              icon: Calendar 
+            {
+              label: 'Total',
+              count: getDateFilteredAppointments(appointments, dateFilter).length,
+              color: 'blue',
+              icon: Calendar
             },
-            { 
-              label: 'Confirmed', 
-              count: getDateFilteredAppointments(appointments, dateFilter).filter(a => a.status === 'confirmed').length, 
-              color: 'green', 
-              icon: UserCheck 
+            {
+              label: 'Confirmed',
+              count: getDateFilteredAppointments(appointments, dateFilter).filter(a => a.status === 'confirmed').length,
+              color: 'green',
+              icon: UserCheck
             },
-            { 
-              label: 'Pending', 
-              count: getDateFilteredAppointments(appointments, dateFilter).filter(a => a.status === 'pending').length, 
-              color: 'yellow', 
-              icon: Clock 
+            {
+              label: 'Pending',
+              count: getDateFilteredAppointments(appointments, dateFilter).filter(a => a.status === 'pending').length,
+              color: 'yellow',
+              icon: Clock
             },
-            { 
-              label: 'Completed', 
-              count: getDateFilteredAppointments(appointments, dateFilter).filter(a => a.status === 'completed').length, 
-              color: 'purple', 
-              icon: Activity 
+            {
+              label: 'Completed',
+              count: getDateFilteredAppointments(appointments, dateFilter).filter(a => a.status === 'completed').length,
+              color: 'purple',
+              icon: Activity
             }
           ].map((stat, index) => {
             const Icon = stat.icon;
@@ -258,12 +308,11 @@ export default function AllAppointments() {
             <Calendar className="w-16 h-16 text-gray-300 mx-auto mb-4" />
             <h3 className="text-xl font-semibold text-gray-900 mb-2">No appointments found</h3>
             <p className="text-gray-600">
-              {dateFilter !== 'all' 
-                ? `No appointments found for the selected time period (${
-                    dateFilter === 'last10days' ? 'Last 10 Days' :
-                    dateFilter === 'last30days' ? 'Last 30 Days' :
+              {dateFilter !== 'all'
+                ? `No appointments found for the selected time period (${dateFilter === 'last10days' ? 'Last 10 Days' :
+                  dateFilter === 'last30days' ? 'Last 30 Days' :
                     dateFilter === 'last3months' ? 'Last 3 Months' : 'All Time'
-                  })`
+                })`
                 : 'Try adjusting your search or filter criteria'
               }
             </p>
@@ -279,42 +328,107 @@ export default function AllAppointments() {
                     <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Doctor</th>
                     <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date & Time</th>
                     <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Service</th>
-                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                    <th className="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
-                  {filteredAppointments.map((app, index) => (
-                    <tr key={app._id} className="hover:bg-gray-50 transition-colors duration-150">
+                  {filteredAppointments.map((appt, index) => (
+                    <tr key={appt._id} className="hover:bg-gray-50 transition-colors duration-150">
                       <td className="px-6 py-4 whitespace-nowrap">
                         <div className="flex items-center">
                           <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-semibold text-sm">
-                            {app.patientName.split(' ').map(n => n[0]).join('')}
+                            {appt.patientName.split(' ').map(n => n[0]).join('')}
                           </div>
                           <div className="ml-4">
-                            <div className="text-sm font-medium text-gray-900">{app.patientName}</div>
+                            <div className="text-sm font-medium text-gray-900">{appt.patientName}</div>
+                            <div className="text-sm text-gray-500">{appt.patientPhone}</div>
                           </div>
                         </div>
                       </td>
+                      
+
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900">{app.doctor?.name || '—'}</div>
+                        <div className="text-sm text-gray-900">{appt.doctor?.name || '—'}</div>
                       </td>
+
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900">{new Date(app.date).toLocaleDateString()}</div>
-                        <div className="text-sm text-gray-500">{app.time}</div>
+                        <div className="text-sm text-gray-900">{new Date(appt.date).toLocaleDateString()}</div>
+                        <div className="text-sm text-gray-500">{appt.time}</div>
                       </td>
+
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <div className="text-sm text-gray-900">{app.PatientService}</div>
+                        <div className="text-sm text-gray-900">{appt.PatientService}</div>
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap">
-                        <span className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-medium border ${getStatusColor(app.status)}`}>
-                          {getStatusIcon(app.status)}
-                          <span className="capitalize">{app.status}</span>
-                        </span>
+
+                    
+                      <td className="px-6 py-4">
+                        {appt.status === 'pending' ? (
+                          <div className="flex items-center space-x-2">
+                            {/* Accept Button */}
+                            <button
+                              onClick={() => handleAccept(appt._id)}
+                              disabled={loadingId === appt._id}
+                              className={`relative inline-flex items-center px-3 py-1.5 text-sm font-medium rounded-lg transition-all duration-300 ease-in-out transform
+                  ${loadingId === appt._id
+                                  ? 'bg-green-300 cursor-not-allowed scale-95 shadow-inner'
+                                  : 'bg-green-600 hover:bg-green-700 hover:scale-105 hover:shadow-lg text-white active:scale-95'
+                                }`}
+                            >
+                              {loadingId === appt._id ? (
+                                <div className="flex items-center">
+                                  <div className="relative mr-2 w-4 h-4">
+                                    <div className="absolute inset-0 border-2 border-green-200 rounded-full animate-spin border-t-green-600" />
+                                    <div className="absolute inset-1 border-2 border-transparent rounded-full animate-spin border-b-green-700"
+                                      style={{ animationDirection: 'reverse', animationDuration: '0.6s' }} />
+                                  </div>
+                                  Processing...
+                                </div>
+                              ) : (
+                                <>
+                                  <Check className="w-4 h-4 mr-1" />
+                                  Accept
+                                </>
+                              )}
+                            </button>
+
+                            {/* Reject Button */}
+                            <button
+                              onClick={() => handleReject(appt._id)}
+                              disabled={loadingId === appt._id}
+                              className={`relative inline-flex items-center px-3 py-1.5 text-sm font-medium rounded-lg transition-all duration-300 ease-in-out transform
+                  ${loadingId === appt._id
+                                  ? 'bg-red-300 cursor-not-allowed scale-95 shadow-inner'
+                                  : 'bg-red-600 hover:bg-red-700 hover:scale-105 hover:shadow-lg text-white active:scale-95'
+                                }`}
+                            >
+                              {loadingId === appt._id ? (
+                                <div className="flex items-center">
+                                  <div className="relative mr-2 w-4 h-4">
+                                    <div className="absolute inset-0 border-2 border-red-200 rounded-full animate-spin border-t-red-600" />
+                                    <div className="absolute inset-1 border-2 border-transparent rounded-full animate-spin border-b-red-700"
+                                      style={{ animationDirection: 'reverse', animationDuration: '0.6s' }} />
+                                  </div>
+                                  Processing...
+                                </div>
+                              ) : (
+                                <>
+                                  <X className="w-4 h-4 mr-1" />
+                                  Cancel
+                                </>
+                              )}
+                            </button>
+                          </div>
+                        ) : (
+                          <span className={`${appt.status === "confirmed" ?"text-green-600":"text-red-600"} font-medium text-sm capitalize`}>
+                            {appt.status}
+                          </span>
+                        )}
                       </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
+
             </div>
           </div>
         ) : (
@@ -337,7 +451,7 @@ export default function AllAppointments() {
                     <span className="capitalize">{app.status}</span>
                   </span>
                 </div>
-                
+
                 <div className="space-y-3 text-sm">
                   <div className="flex items-center gap-2 text-gray-600">
                     <Calendar className="w-4 h-4" />
